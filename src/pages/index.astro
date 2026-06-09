@@ -9,11 +9,11 @@ const base = import.meta.env.BASE_URL;
 		<button class="intro__skip" type="button" data-skip>건너뛰기</button>
 	</div>
 
-	<main class="market" data-market aria-label="코이노니아 마켓 메인" style={`--poster-url: url(${base}/assets/koinonia-market-base.png)`}>
+	<main class="market" data-market aria-label="코이노니아 마켓 메인" style={`--poster-url: url(${base}/assets/koinonia-market.png)`}>
 		<div class="market__backdrop" aria-hidden="true"></div>
 		<section class="market__poster">
-			<img src={`${base}/assets/koinonia-market-base.png`} alt="코이노니아 마켓" width="1448" height="1086" fetchpriority="high" />
-			<img class="waving-hand" src={`${base}/assets/koinonia-hand.png`} alt="" width="188" height="145" aria-hidden="true" />
+			<img src={`${base}/assets/koinonia-market.png`} alt="코이노니아 마켓" width="1448" height="1086" fetchpriority="high" />
+			<img class="waving-hand" src={`${base}/assets/koinonia-hand.png`} alt="" width="188" height="235" aria-hidden="true" />
 			<nav class="market__nav" aria-label="마켓 둘러보기">
 				<a class="market-link food" href={`${base}/food`}><span class="sr-only">먹거리 페이지로 이동</span></a>
 				<a class="market-link goods" href={`${base}/goods`}><span class="sr-only">팔거리 페이지로 이동</span></a>
@@ -62,8 +62,8 @@ const base = import.meta.env.BASE_URL;
 	.market.is-visible { opacity: 1; }
 	.market.is-visible .market__poster { animation: poster-rise 1000ms cubic-bezier(.16, 1, .3, 1) 100ms both; }
 	.market__poster > img:first-child { display: block; width: 100%; height: auto; }
-	.waving-hand { position: absolute; top: 0; left: 87.016%; z-index: 2; width: 12.983%; height: 13.352%; object-fit: contain; transform-origin: 58% 96%; will-change: transform; pointer-events: none; }
-	.market.is-visible .waving-hand { animation: hand-wave 2.4s ease-in-out 1.05s infinite; }
+	.waving-hand { position: absolute; top: 0; left: 87.016%; z-index: 2; width: 12.983%; height: 21.639%; object-fit: contain; transform-origin: 76% 88%; pointer-events: none; }
+	.market.is-visible .waving-hand { animation: hand-wave 2.8s ease-in-out 1.05s infinite; }
 	.market__nav { position: absolute; inset: 0; }
 	.market-link { position: absolute; top: 31%; height: 25%; border-radius: 8px; color: transparent; cursor: pointer; }
 	.market-link.food { left: 5%; width: 29%; }
@@ -75,12 +75,11 @@ const base = import.meta.env.BASE_URL;
 	.market-link:focus-visible::after { border-color: rgb(255 255 255 / 90%); background: rgb(255 255 255 / 10%); }
 	.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
 	@keyframes hand-wave {
-		0%, 8%, 62%, 100% { transform: translate(0, 0) rotate(0deg); }
-		16% { transform: translate(-7%, -2%) rotate(-20deg); }
-		25% { transform: translate(6%, 1%) rotate(17deg); }
-		34% { transform: translate(-6%, -2%) rotate(-18deg); }
-		43% { transform: translate(5%, 1%) rotate(14deg); }
-		52% { transform: translate(-3%, -1%) rotate(-9deg); }
+		0%, 12%, 42%, 100% { transform: rotate(0deg); }
+		18% { transform: rotate(-11deg); }
+		24% { transform: rotate(9deg); }
+		30% { transform: rotate(-9deg); }
+		36% { transform: rotate(7deg); }
 	}
 	@keyframes poster-rise { 0% { opacity: 0; transform: translateY(110vh) scale(.96); } 70% { opacity: 1; transform: translateY(-2.2%) scale(1); } 100% { opacity: 1; transform: none; } }
 	@media (max-width: 640px) {
