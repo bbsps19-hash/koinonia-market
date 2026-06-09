@@ -1,0 +1,9 @@
+---
+import CategoryPage from '../components/CategoryPage.astro';
+const items = [
+	{ number: '01', name: '손으로 만든 것', note: '시간과 마음을 담아 완성한 작은 물건' },
+	{ number: '02', name: '다시 쓰는 것', note: '새로운 주인을 기다리는 가치 있는 물건' },
+	{ number: '03', name: '함께 나눌 것', note: '필요한 곳으로 마음까지 이어지는 나눔' },
+];
+---
+<CategoryPage title="팔거리" english="GOODS & SHARING" description="누군가의 손길과 이야기가 담긴 물건을 소개합니다. 사고파는 일을 넘어 가치를 함께 나눕니다." accent="#2f6959" soft="#cddfd4" {items} />

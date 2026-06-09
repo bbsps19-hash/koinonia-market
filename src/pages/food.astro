@@ -1,0 +1,9 @@
+---
+import CategoryPage from '../components/CategoryPage.astro';
+const items = [
+	{ number: '01', name: '든든한 한 끼', note: '함께 차리고 함께 나누는 따뜻한 식탁' },
+	{ number: '02', name: '달콤한 간식', note: '잠시 쉬어가며 즐기는 작은 행복' },
+	{ number: '03', name: '향긋한 마실 것', note: '이야기가 자연스럽게 이어지는 한 잔' },
+];
+---
+<CategoryPage title="먹거리" english="FOOD & DRINK" description="좋은 재료와 정성을 담은 먹거리를 만나보세요. 함께 먹는 순간이 우리를 더 가깝게 만듭니다." accent="#a74834" soft="#ead4c9" {items} />

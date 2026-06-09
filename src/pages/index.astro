@@ -1,11 +1,94 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const base = import.meta.env.BASE_URL;
 ---
 
-<Layout>
-	<Welcome />
+<Layout title="코이노니아 마켓">
+	<div class="intro" data-intro>
+		<video class="intro__video" data-intro-video src={`${base}/assets/koinonia-market.mp4`} autoplay muted playsinline preload="auto" aria-label="코이노니아 마켓 오프닝 영상"></video>
+		<button class="intro__skip" type="button" data-skip>건너뛰기</button>
+	</div>
+
+	<main class="market" data-market aria-label="코이노니아 마켓 메인" style={`--poster-url: url(${base}/assets/koinonia-market.png)`}>
+		<div class="market__backdrop" aria-hidden="true"></div>
+		<section class="market__poster">
+			<img src={`${base}/assets/koinonia-market.png`} alt="코이노니아 마켓" width="1448" height="1086" fetchpriority="high" />
+			<img class="waving-hand" src={`${base}/assets/koinonia-hand.png`} alt="" width="188" height="235" aria-hidden="true" />
+			<nav class="market__nav" aria-label="마켓 둘러보기">
+				<a class="market-link food" href={`${base}/food`}><span class="sr-only">먹거리 페이지로 이동</span></a>
+				<a class="market-link goods" href={`${base}/goods`}><span class="sr-only">팔거리 페이지로 이동</span></a>
+				<a class="market-link play" href={`${base}/play`}><span class="sr-only">놀거리 페이지로 이동</span></a>
+			</nav>
+		</section>
+	</main>
+
+	<script>
+		const intro = document.querySelector('[data-intro]');
+		const video = document.querySelector('[data-intro-video]');
+		const skip = document.querySelector('[data-skip]');
+		const market = document.querySelector('[data-market]');
+		const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+		let entered = false;
+		const enter = () => {
+			if (entered) return;
+			entered = true;
+			market?.classList.add('is-visible');
+			intro?.classList.add('is-finished');
+			window.setTimeout(() => intro?.remove(), reduceMotion ? 0 : 700);
+		};
+		if (reduceMotion) {
+			video?.pause();
+			enter();
+		} else {
+			video?.addEventListener('ended', enter, { once: true });
+			video?.addEventListener('error', enter, { once: true });
+			skip?.addEventListener('click', enter, { once: true });
+			video?.play()?.catch(() => window.setTimeout(enter, 800));
+			window.setTimeout(enter, 12000);
+		}
+	</script>
 </Layout>
+
+<style>
+	.intro { position: fixed; inset: 0; z-index: 10; display: grid; place-items: center; overflow: hidden; background: #f1e6cc; transition: opacity 600ms ease, visibility 600ms ease; }
+	.intro::after { position: absolute; inset: 0; content: ''; pointer-events: none; box-shadow: inset 0 0 100px rgb(44 34 17 / 18%); }
+	.intro.is-finished { visibility: hidden; opacity: 0; }
+	.intro__video { width: 100%; height: 100%; object-fit: cover; }
+	.intro__skip { position: absolute; right: clamp(18px, 3vw, 42px); bottom: clamp(18px, 3vw, 36px); z-index: 1; padding: 10px 17px; border: 1px solid rgb(255 255 255 / 55%); border-radius: 999px; color: white; background: rgb(24 20 13 / 45%); font-size: 13px; font-weight: 700; cursor: pointer; backdrop-filter: blur(10px); transition: 180ms ease; }
+	.intro__skip:hover { background: rgb(24 20 13 / 68%); transform: translateY(-2px); }
+	.market { position: relative; display: grid; min-height: 100svh; place-items: center; overflow: hidden; padding: clamp(14px, 2.5vw, 38px); opacity: 0; background: #d8c5a2; }
+	.market__backdrop { position: absolute; inset: -40px; background: linear-gradient(rgb(75 53 24 / 22%), rgb(75 53 24 / 22%)), var(--poster-url) center / cover; filter: blur(32px) saturate(.7); transform: scale(1.1); }
+	.market__poster { position: relative; width: min(100%, calc((100svh - clamp(28px, 5vw, 76px)) * 1.3333)); overflow: hidden; border: 1px solid rgb(255 255 255 / 32%); border-radius: clamp(8px, 1.4vw, 20px); box-shadow: 0 32px 80px rgb(37 25 9 / 33%), 0 3px 10px rgb(37 25 9 / 16%); transform: translateY(110vh) scale(.96); }
+	.market.is-visible { opacity: 1; }
+	.market.is-visible .market__poster { animation: poster-rise 1000ms cubic-bezier(.16, 1, .3, 1) 100ms both; }
+	.market__poster > img:first-child { display: block; width: 100%; height: auto; }
+	.waving-hand { position: absolute; top: 0; left: 87.016%; z-index: 2; width: 12.983%; height: 21.639%; object-fit: contain; transform-origin: 76% 88%; pointer-events: none; }
+	.market.is-visible .waving-hand { animation: hand-wave 2.8s ease-in-out 1.05s infinite; }
+	.market__nav { position: absolute; inset: 0; }
+	.market-link { position: absolute; top: 31%; height: 25%; border-radius: 8px; color: transparent; cursor: pointer; }
+	.market-link.food { left: 5%; width: 29%; }
+	.market-link.goods { left: 35%; width: 29%; }
+	.market-link.play { left: 66%; width: 29%; }
+	.market-link::after { position: absolute; inset: 8%; content: ''; border: 3px solid transparent; border-radius: 12px; transition: border-color 180ms ease, background 180ms ease; }
+	.market-link:hover::after { background: rgb(255 255 255 / 8%); }
+	.market-link:focus-visible { outline: none; }
+	.market-link:focus-visible::after { border-color: rgb(255 255 255 / 90%); background: rgb(255 255 255 / 10%); }
+	.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+	@keyframes hand-wave {
+		0%, 12%, 42%, 100% { transform: rotate(0deg); }
+		18% { transform: rotate(-11deg); }
+		24% { transform: rotate(9deg); }
+		30% { transform: rotate(-9deg); }
+		36% { transform: rotate(7deg); }
+	}
+	@keyframes poster-rise { 0% { opacity: 0; transform: translateY(110vh) scale(.96); } 70% { opacity: 1; transform: translateY(-2.2%) scale(1); } 100% { opacity: 1; transform: none; } }
+	@media (max-width: 640px) {
+		.market { padding: 10px; }
+		.market__poster { width: 100%; }
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.intro { display: none; }
+		.market, .market__poster { opacity: 1; transform: none; }
+		.market.is-visible .market__poster, .market.is-visible .waving-hand { animation: none; }
+	}
+</style>
