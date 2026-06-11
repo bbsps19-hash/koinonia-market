@@ -1,0 +1,83 @@
+---
+import Layout from '../../layouts/Layout.astro';
+const { game } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const asset = (path) => `${base}${path}`;
+---
+
+<Layout title={`${game.title} | 코이노니아 마켓 놀거리`} description={game.summary}>
+  <main class="target-page">
+    <header class="topbar shell">
+      <a class="back-link" href={`${base}/play`}>← 놀거리 목록으로 돌아가기</a>
+      <span>MISSION MARKET · TARGET 01</span>
+    </header>
+
+    <section class="hero shell" aria-labelledby="target-title">
+      <div class="hero-copy">
+        <p class="eyebrow">NEON ARCADE TARGET GAME</p>
+        <h1 id="target-title">{game.title}</h1>
+        <h2>{game.subtitle}</h2>
+        <p class="summary">{game.summary}</p>
+        <div class="badges">{game.badges.map((badge) => <span>{badge}</span>)}</div>
+      </div>
+      <figure class="poster-card">
+        <img src={asset(game.posterImage)} alt="타겟마스터 게임 포스터" loading="eager" fetchpriority="high" />
+        <figcaption>과녁을 맞히고 캡슐 보상에 도전하세요.</figcaption>
+      </figure>
+    </section>
+
+    <div class="content shell">
+      <section class="panel description-panel" aria-labelledby="description-title">
+        <div class="section-heading"><p>GAME INFO</p><h2 id="description-title">게임 설명</h2></div>
+        <ul class="description-list">{game.gameDescription.map((item) => <li><span aria-hidden="true">◎</span>{item}</li>)}</ul>
+      </section>
+
+      <section class="panel" aria-labelledby="steps-title">
+        <div class="section-heading"><p>HOW TO PLAY</p><h2 id="steps-title">게임 방법</h2></div>
+        <ol class="steps">{game.steps.map((step, index) => <li><span>STEP {index + 1}</span><p>{step}</p></li>)}</ol>
+      </section>
+
+      <section class="panel" aria-labelledby="themes-title">
+        <div class="section-heading"><p>CHOOSE A THEME</p><h2 id="themes-title">테마 선택</h2><p class="lead">원하는 테마를 선택하면 해당 테마의 모니터 화면과 사운드를 들으며 게임을 진행할 수 있습니다.</p><span class="support">아케이드, 메탈슬러그, 스타워즈 중 원하는 테마를 고르거나 랜덤으로 즐길 수 있어요.</span></div>
+        <div class="theme-grid">
+          {game.themes.map((theme) => (
+            <article class="theme-card">
+              <div class:list={['theme-media', { random: !theme.image }]}>
+                {theme.image ? <img src={asset(theme.image)} alt={theme.alt} loading="lazy" /> : <span aria-hidden="true">?</span>}
+                <div class="media-overlay"></div><strong>{theme.name}</strong>
+              </div>
+              <p>{theme.description}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="panel" aria-labelledby="modes-title">
+        <div class="section-heading"><p>PLAY TOGETHER</p><h2 id="modes-title">함께하는 모드</h2></div>
+        <div class="mode-grid">
+          {game.modes.map((mode) => <article class:list={['mode-card', mode.accent]}><div class="mode-top"><span aria-hidden="true">{mode.accent === 'blue' ? '∞' : 'VS'}</span><p>{mode.name}</p></div><h3>{mode.highlight}</h3><strong>{mode.subText}</strong><p class="mode-description">{mode.description}</p></article>)}
+        </div>
+      </section>
+
+      <section class="panel reward-panel" aria-labelledby="rewards-title">
+        <div class="section-heading"><p>CAPSULE REWARD</p><h2 id="rewards-title">보상</h2><p class="lead">점수에 따라 캡슐을 획득하고, 캡슐 속 다양한 선물을 받을 수 있습니다.</p></div>
+        <ul class="reward-rules">{game.rewards.map((reward, index) => <li><span>{index + 1}</span>{reward}</li>)}</ul>
+        <p class="prize-summary">왁뿌볼 · 말랑이 · 키링 · 등 다양한 선물</p>
+        <div class="prize-grid">
+          {game.prizes.map((prize) => <article class="prize-card"><div class={`capsule ${prize.visual}`} aria-hidden="true"><span></span></div><strong>{prize.name}</strong><p>{prize.description}</p></article>)}
+        </div>
+      </section>
+
+      <section class="notice-card" aria-labelledby="notice-title">
+        <div class="notice-title"><span aria-hidden="true">!</span><div><p>SAFETY FIRST</p><h2 id="notice-title">주의사항</h2></div></div>
+        <ul>{game.notices.map((notice) => <li>{notice}</li>)}</ul>
+      </section>
+
+      <a class="bottom-back" href={`${base}/play`}>← 놀거리 목록으로 돌아가기</a>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  :global(body){background:#eef5ff}.target-page{--navy:#081b3c;--blue:#12386d;--cyan:#4be3ff;--purple:#9f78ff;--orange:#ff7a32;--yellow:#ffd95a;--paper:#f8fbff;--text:#142442;--muted:#66728a;min-height:100svh;color:var(--text);background:linear-gradient(180deg,#102d5b 0 690px,#eef5ff 690px)}.shell{width:min(1120px,calc(100% - 36px));margin-inline:auto}.topbar{display:flex;align-items:center;justify-content:space-between;padding:22px 0;border-bottom:1px solid rgb(255 255 255/18%);color:white;font-size:12px;font-weight:850}.topbar a{color:inherit;text-decoration:none}.topbar a:hover{color:var(--cyan)}.topbar span{color:rgb(255 255 255/58%);letter-spacing:.08em}.hero{display:grid;grid-template-columns:1.12fr .72fr;gap:clamp(45px,7vw,90px);align-items:center;min-height:610px;padding:64px 0 90px;color:white}.eyebrow,.section-heading>p:first-child,.notice-title p{margin:0 0 10px;color:var(--cyan);font-size:10px;font-weight:900;letter-spacing:.16em}.hero h1{margin:0;font-size:clamp(62px,9vw,108px);line-height:.92;letter-spacing:-.08em;text-shadow:3px 3px 0 rgb(159 120 255/28%)}.hero h2{margin:22px 0 0;color:var(--yellow);font-size:clamp(21px,3vw,34px);letter-spacing:-.04em}.summary{max-width:650px;margin:20px 0 28px;color:rgb(255 255 255/76%);font-size:17px;line-height:1.75}.badges{display:flex;flex-wrap:wrap;gap:8px}.badges span{padding:9px 12px;border:1px solid rgb(75 227 255/32%);border-radius:999px;background:rgb(255 255 255/7%);font-size:12px;font-weight:750}.poster-card{margin:0;padding:10px;border:1px solid var(--cyan);border-radius:22px;background:rgb(8 27 60/58%);box-shadow:0 22px 55px rgb(0 0 0/28%),0 0 28px rgb(75 227 255/14%)}.poster-card img{display:block;width:100%;max-height:485px;object-fit:contain;border-radius:14px;background:var(--navy)}.poster-card figcaption{padding:11px 4px 2px;color:rgb(255 255 255/62%);font-size:11px;text-align:center}.content{display:grid;gap:28px;padding:72px 0 90px}.panel{padding:clamp(28px,4vw,46px);border:1px solid #dbe5f3;border-radius:22px;background:var(--paper);box-shadow:0 12px 32px rgb(8 27 60/7%)}.section-heading>p:first-child{color:#277a9a}.section-heading h2{margin:0;color:var(--navy);font-size:clamp(30px,4vw,44px);letter-spacing:-.06em}.lead{max-width:790px;margin:15px 0 0;color:#475775;font-size:16px;line-height:1.75}.support{display:block;margin-top:6px;color:var(--muted);font-size:13px}.description-list{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:26px 0 0;padding:0;list-style:none}.description-list li{display:flex;gap:12px;align-items:center;padding:17px 18px;border:1px solid #dce5f1;border-radius:13px;background:white;color:#40506e;font-size:14px;font-weight:700}.description-list li:last-child{grid-column:1/-1}.description-list span{color:var(--orange);font-weight:900}.steps{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:26px 0 0;padding:0;list-style:none}.steps li{min-height:118px;padding:20px;border:1px solid #dce5f1;border-radius:14px;background:white}.steps span{color:#237e9f;font-size:10px;font-weight:900;letter-spacing:.11em}.steps p{margin:19px 0 0;font-size:14px;font-weight:750;line-height:1.65}.theme-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:28px}.theme-card{overflow:hidden;border:1px solid #dce5f1;border-radius:16px;background:white;transition:transform 180ms ease,border-color 180ms ease,box-shadow 180ms ease}.theme-card:hover{border-color:var(--cyan);box-shadow:0 10px 26px rgb(27 119 153/14%);transform:translateY(-4px)}.theme-media{position:relative;aspect-ratio:16/9;overflow:hidden;background:#0b2148}.theme-media img{display:block;width:100%;height:100%;object-fit:cover}.media-overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent 35%,rgb(3 13 34/86%))}.theme-media strong{position:absolute;right:14px;bottom:11px;left:14px;z-index:1;color:white;font-size:17px}.theme-media.random{display:grid;place-items:center;background:linear-gradient(135deg,#153d73,#5b3b8b)}.theme-media.random>span{color:var(--cyan);font-size:54px;font-weight:900;text-shadow:0 0 18px rgb(75 227 255/55%)}.theme-card>p{min-height:72px;margin:0;padding:14px;color:var(--muted);font-size:12px;line-height:1.55}.mode-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:27px}.mode-card{padding:26px;border-radius:17px;color:white}.mode-card.blue{background:linear-gradient(135deg,#123f7b,#19588d)}.mode-card.orange{background:linear-gradient(135deg,#a93f29,#d95b2b)}.mode-top{display:flex;align-items:center;justify-content:space-between}.mode-top span{display:grid;width:42px;height:42px;place-items:center;border:1px solid rgb(255 255 255/32%);border-radius:11px;background:rgb(255 255 255/10%);font-weight:900}.mode-top p{margin:0;color:rgb(255 255 255/68%);font-size:12px;font-weight:800}.mode-card h3{margin:25px 0 8px;font-size:clamp(22px,3vw,31px);letter-spacing:-.045em}.mode-card>strong{color:#fff2a9;font-size:13px}.mode-description{margin:17px 0 0;color:rgb(255 255 255/76%);font-size:13px;line-height:1.7}.reward-rules{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:26px 0 0;padding:0;list-style:none}.reward-rules li{display:flex;gap:11px;align-items:flex-start;padding:17px;border:1px solid #dce5f1;border-radius:13px;background:white;color:#475775;font-size:13px;font-weight:700;line-height:1.55}.reward-rules span{display:grid;width:24px;height:24px;flex:0 0 auto;place-items:center;border-radius:50%;color:white;background:var(--orange);font-size:10px}.prize-summary{margin:30px 0 15px;color:var(--navy);font-size:14px;font-weight:900}.prize-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.prize-card{padding:18px 13px;border:1px solid rgb(75 227 255/24%);border-radius:16px;background:linear-gradient(180deg,rgb(75 227 255/8%),white);text-align:center}.capsule{position:relative;width:54px;height:82px;margin:0 auto 14px;overflow:hidden;border:2px solid rgb(73 124 164/30%);border-radius:28px;background:linear-gradient(180deg,rgb(255 255 255/75%) 50%,rgb(75 227 255/22%) 50%)}.capsule::after{position:absolute;top:50%;right:0;left:0;height:2px;content:'';background:rgb(73 124 164/25%)}.capsule span{position:absolute;top:22px;left:50%;width:24px;height:24px;border-radius:50%;background:#69bf67;transform:translateX(-50%)}.capsule.squishy span{border-radius:45% 55% 52% 48%;background:#f3ca45}.capsule.keyring span{width:20px;height:20px;border:4px solid #8f78c9;background:transparent}.capsule.keyring span::after{position:absolute;top:16px;left:5px;width:6px;height:14px;border-radius:3px;content:'';background:#8f78c9}.capsule.mystery span{display:grid;width:25px;height:23px;place-items:center;border-radius:4px;background:var(--orange)}.capsule.mystery span::after{content:'?';color:white;font-size:14px;font-weight:900}.prize-card strong{font-size:14px}.prize-card p{margin:7px 0 0;color:var(--muted);font-size:11px;line-height:1.5}.notice-card{padding:clamp(26px,4vw,42px);border:1px solid var(--orange);border-radius:22px;color:white;background:var(--navy);box-shadow:0 14px 32px rgb(8 27 60/14%)}.notice-title{display:flex;gap:15px;align-items:center}.notice-title>span{display:grid;width:42px;height:42px;place-items:center;border-radius:12px;color:var(--navy);background:var(--yellow);font-size:20px;font-weight:900}.notice-title p{margin-bottom:4px;color:var(--yellow)}.notice-title h2{margin:0;font-size:30px}.notice-card ul{display:grid;gap:11px;margin:24px 0 0;padding-left:20px;color:rgb(255 255 255/78%);font-size:14px;line-height:1.65}.notice-card li::marker{color:var(--orange)}.bottom-back{justify-self:start;padding:12px 17px;border-radius:10px;color:white;background:var(--navy);font-size:13px;font-weight:850;text-decoration:none}.bottom-back:hover{background:var(--blue)}@media(max-width:900px){.theme-grid{grid-template-columns:repeat(2,1fr)}.reward-rules{grid-template-columns:1fr}.prize-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:720px){.target-page{background:linear-gradient(180deg,#102d5b 0 1030px,#eef5ff 1030px)}.topbar{align-items:flex-start;flex-direction:column;gap:9px}.hero{grid-template-columns:1fr;padding:52px 0 90px}.poster-card{width:min(100%,410px);margin-inline:auto}.content{padding-top:55px}.description-list,.steps,.mode-grid{grid-template-columns:1fr}.description-list li:last-child{grid-column:auto}}@media(max-width:500px){.shell{width:calc(100% - 24px)}.hero h1{font-size:clamp(58px,20vw,82px)}.panel{padding:25px 19px}.theme-grid{grid-template-columns:1fr}.theme-card>p{min-height:auto}.prize-grid{grid-template-columns:repeat(2,1fr)}.prize-card{padding-inline:9px}}@media(prefers-reduced-motion:reduce){.theme-card{transition:none}}
+</style>
