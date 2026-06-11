@@ -1,0 +1,11 @@
+---
+import GameDetailPage from '../../../components/play/GameDetailPage.astro';
+import { playGames } from '../../../data/play.js';
+
+export function getStaticPaths() {
+  return playGames.map((game) => ({ params: { id: game.id }, props: { game } }));
+}
+
+const { game } = Astro.props;
+---
+<GameDetailPage {game} />
