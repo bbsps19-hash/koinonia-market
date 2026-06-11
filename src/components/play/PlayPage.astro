@@ -1,0 +1,133 @@
+---
+import Layout from '../../layouts/Layout.astro';
+const { eventInfo, priceInfo, games, prizes } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const posterSrc = `${base}${eventInfo.posterImage}`;
+---
+
+<Layout title={`${eventInfo.subtitle} | 코이노니아 마켓`} description={eventInfo.description}>
+  <main class="play-page">
+    <header class="site-header">
+      <a class="brand" href={`${base}/`}><span aria-hidden="true">←</span> KOINONIA MARKET</a>
+      <nav aria-label="마켓 카테고리">
+        <a href={`${base}/food`}>먹거리</a><a href={`${base}/goods`}>팔거리</a><a class="active" href={`${base}/play`} aria-current="page">놀거리</a>
+      </nav>
+    </header>
+
+    <section class="hero shell" aria-labelledby="play-title">
+      <div class="dots" aria-hidden="true"></div><span class="hero-star" aria-hidden="true">★</span>
+      <div class="hero-copy">
+        <p class="eyebrow"><span>MISSION MARKET</span>{eventInfo.subtitle}</p>
+        <h1 id="play-title">{eventInfo.title}</h1>
+        <p class="description">{eventInfo.description}</p>
+        <dl class="event-badges">
+          <div><dt>일시</dt><dd>{eventInfo.date}</dd></div><div><dt>장소</dt><dd>{eventInfo.location}</dd></div><div><dt>주최</dt><dd>{eventInfo.host}</dd></div>
+        </dl>
+      </div>
+      <figure class="poster-card">
+        <div class="poster-label"><span>OFFICIAL POSTER</span><strong>PLAY ZONE</strong></div>
+        <img src={posterSrc} alt={`${eventInfo.subtitle} 공식 포스터`} loading="eager" fetchpriority="high" />
+        <figcaption>게임 종류와 현장 안내를 포스터에서도 확인해보세요.</figcaption>
+      </figure>
+    </section>
+
+    <section class="coupon-section shell" aria-labelledby="price-title">
+      <div class="section-heading light"><p>PLAY TICKET</p><h2 id="price-title">한 장으로 더 신나게!</h2></div>
+      <div class="coupon">
+        <div class="coupon-single"><span>기본 이용권</span><strong>{priceInfo.singleGame}</strong></div>
+        <div class="coupon-main"><p>BEST CHOICE</p><strong>{priceInfo.bigCoupon}</strong><span>{priceInfo.couponDescription}</span></div>
+        <div class="coupon-mark" aria-hidden="true">BIG<br /><b>3</b></div>
+      </div>
+    </section>
+
+    <section class="games-section shell" aria-labelledby="games-title">
+      <div class="section-heading"><p>CHOOSE YOUR GAME</p><h2 id="games-title">오늘은 뭐 하고 놀까?</h2><span>카드를 선택하면 참여 방법과 상세 정보를 확인할 수 있어요.</span></div>
+      <div class="game-grid">
+        {games.map((game, index) => (
+          <article class:list={['game-card', `accent-${game.accent}`, { 'is-selected': index === 0 }]} data-game-card={game.id}>
+            <button type="button" data-game-select={game.id} aria-pressed={index === 0 ? 'true' : 'false'} aria-controls="game-detail">
+              <div class="card-top"><span class="game-number">{game.number}</span><span class="game-icon" aria-hidden="true">{game.icon}</span></div>
+              <h3>{game.title}</h3><p>{game.shortDescription}</p>
+              <dl><div><dt>PRICE</dt><dd>{game.price}</dd></div><div><dt>PLACE</dt><dd>{game.location}</dd></div></dl>
+              <span class="detail-link">자세히 보기 <i aria-hidden="true">→</i></span>
+            </button>
+          </article>
+        ))}
+      </div>
+
+      <div class="game-detail" id="game-detail" aria-live="polite">
+        {games.map((game, index) => (
+          <article class:list={['detail-panel', `accent-${game.accent}`]} data-game-panel={game.id} hidden={index !== 0}>
+            <div class="detail-heading"><div><span>SELECTED GAME · {game.number}</span><h2>{game.title}</h2></div><span class="detail-icon" aria-hidden="true">{game.icon}</span></div>
+            <p class="detail-intro">{game.description}</p>
+            <div class="detail-grid">
+              <div class="how-to"><h3>게임 방법</h3><ol>{game.howToPlay.map((step) => <li><span>{step}</span></li>)}</ol></div>
+              <dl class="detail-info">
+                <div><dt>참가 비용</dt><dd>{game.price}</dd></div><div><dt>위치</dt><dd>{game.location}</dd></div><div><dt>운영 시간</dt><dd>{game.time}</dd></div><div class="notice"><dt>주의사항</dt><dd>{game.notice}</dd></div>
+              </dl>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="prize-section shell" aria-labelledby="prize-title">
+      <div class="section-heading"><p>WIN A PRIZE</p><h2 id="prize-title">게임하고 선물도 받아가세요</h2><span>즐겁게 참여한 모두를 위해 다양한 상품을 준비했어요.</span></div>
+      <ul class="prize-list">{prizes.map((prize, index) => <li><span class={`prize-icon prize-${index + 1}`} aria-hidden="true">{prize.icon}</span><strong>{prize.name}</strong></li>)}</ul>
+    </section>
+
+    <footer><div><strong>4청 선교마켓 놀거리</strong><span>게임하고, 나누고, 함께 선교해요.</span></div><a href={`${base}/`}>메인으로 돌아가기 <span aria-hidden="true">↗</span></a></footer>
+  </main>
+
+  <script>
+    const buttons = Array.from(document.querySelectorAll('[data-game-select]'));
+    const cards = Array.from(document.querySelectorAll('[data-game-card]'));
+    const panels = Array.from(document.querySelectorAll('[data-game-panel]'));
+    buttons.forEach((button) => button.addEventListener('click', () => {
+      const id = button.getAttribute('data-game-select');
+      buttons.forEach((item) => item.setAttribute('aria-pressed', String(item === button)));
+      cards.forEach((card) => card.classList.toggle('is-selected', card.getAttribute('data-game-card') === id));
+      panels.forEach((panel) => panel.toggleAttribute('hidden', panel.getAttribute('data-game-panel') !== id));
+    }));
+  </script>
+</Layout>
+
+<style is:global>
+  :root { --navy:#071e45;--navy2:#0a2f69;--blue:#2f9ff4;--sky:#8ed9ff;--orange:#ff6a20;--yellow:#ffd33d;--cream:#fff8e9;--ink:#10234a; }
+  body { background:var(--cream); }
+  .play-page { min-height:100svh;overflow:hidden;color:var(--ink);background:linear-gradient(180deg,var(--navy) 0 720px,var(--cream) 720px); }
+  .shell,.site-header,footer { width:min(1180px,calc(100% - 36px));margin-inline:auto; }
+  .site-header { position:relative;z-index:5;display:flex;align-items:center;justify-content:space-between;padding:24px 0;color:white;border-bottom:1px solid rgb(255 255 255 / 18%); }
+  .site-header a { color:inherit;text-decoration:none; }.brand { display:flex;gap:10px;align-items:center;font-size:13px;font-weight:900;letter-spacing:.08em; }
+  .site-header nav { display:flex;gap:10px; }.site-header nav a { padding:8px 13px;border-radius:99px;font-size:13px;font-weight:800; }.site-header nav a:hover,.site-header nav a.active { color:var(--navy);background:var(--yellow); }
+  .hero { position:relative;display:grid;grid-template-columns:minmax(0,1.08fr) minmax(300px,.72fr);gap:clamp(40px,7vw,90px);align-items:center;min-height:650px;padding-block:70px 100px;color:white; }
+  .hero::before,.hero::after { position:absolute;z-index:0;width:60vw;height:18px;content:'';background:var(--orange);transform:rotate(-10deg); }.hero::before { top:80px;right:-49vw; }.hero::after { bottom:90px;left:-53vw;height:11px;background:var(--blue);transform:rotate(8deg); }
+  .hero-copy,.poster-card { position:relative;z-index:1; }.eyebrow { display:flex;gap:13px;align-items:center;margin:0 0 22px;color:var(--sky);font-size:clamp(15px,2vw,20px);font-weight:900; }
+  .eyebrow span { padding:7px 11px;color:var(--navy);background:var(--yellow);font-size:10px;letter-spacing:.08em;transform:skew(-7deg); }
+  .hero h1 { max-width:670px;margin:0;font-size:clamp(52px,7.4vw,96px);font-weight:900;line-height:.98;letter-spacing:-.075em;text-wrap:balance;text-shadow:5px 5px 0 rgb(47 159 244 / 22%); }
+  .description { max-width:590px;margin:28px 0 34px;color:rgb(255 255 255 / 78%);font-size:clamp(16px,1.8vw,20px);line-height:1.7;letter-spacing:-.025em; }
+  .event-badges { display:flex;flex-wrap:wrap;gap:9px;margin:0; }.event-badges div { display:flex;gap:8px;padding:11px 14px;border:1px solid rgb(255 255 255 / 20%);border-radius:10px;background:rgb(255 255 255 / 8%);backdrop-filter:blur(10px); }.event-badges dt { color:var(--yellow);font-size:12px;font-weight:900; }.event-badges dd { margin:0;font-size:12px;font-weight:700; }
+  .poster-card { max-width:420px;margin:0 auto;padding:12px;border:1px solid rgb(142 217 255 / 50%);border-radius:22px;background:rgb(255 255 255 / 10%);box-shadow:0 28px 70px rgb(0 0 0 / 35%),13px 14px 0 var(--orange);transform:rotate(2deg); }
+  .poster-card img { display:block;width:100%;max-height:480px;object-fit:contain;border-radius:13px;background:var(--navy); }.poster-card figcaption { padding:11px 4px 3px;color:rgb(255 255 255 / 65%);font-size:11px;text-align:center; }
+  .poster-label { display:flex;justify-content:space-between;padding:2px 3px 10px;color:var(--yellow);font-size:9px;font-weight:900;letter-spacing:.13em; }.poster-label strong { color:var(--sky); }
+  .dots { position:absolute;top:17%;left:-4%;width:92px;height:92px;opacity:.32;background-image:radial-gradient(var(--sky) 2px,transparent 2px);background-size:13px 13px; }.hero-star { position:absolute;right:39%;bottom:16%;color:var(--yellow);font-size:32px;transform:rotate(13deg); }
+  .coupon-section { display:grid;grid-template-columns:.56fr 1.44fr;gap:50px;align-items:center;margin-top:-28px;padding:55px clamp(24px,5vw,70px);border-radius:28px;color:white;background:var(--orange);box-shadow:0 24px 55px rgb(70 31 8 / 20%); }
+  .section-heading p { margin:0 0 10px;color:var(--orange);font-size:11px;font-weight:900;letter-spacing:.15em; }.section-heading h2 { margin:0;font-size:clamp(30px,4vw,52px);line-height:1.12;letter-spacing:-.065em; }.section-heading>span { display:block;margin-top:12px;color:#66728b;font-size:14px; }.section-heading.light p { color:var(--yellow); }.section-heading.light h2 { color:white; }
+  .coupon { position:relative;display:grid;grid-template-columns:.7fr 1.3fr auto;align-items:stretch;overflow:hidden;border:3px solid var(--navy);border-radius:18px;color:var(--navy);background:var(--yellow);box-shadow:8px 9px 0 rgb(7 30 69 / 30%); }
+  .coupon-single,.coupon-main { display:flex;flex-direction:column;justify-content:center;padding:25px; }.coupon-single { border-right:2px dashed var(--navy); }.coupon-single span,.coupon-main p { margin:0 0 5px;font-size:10px;font-weight:900;letter-spacing:.1em; }.coupon-single strong { font-size:clamp(17px,2vw,23px); }
+  .coupon-main { background:white; }.coupon-main p { color:var(--orange); }.coupon-main strong { font-size:clamp(22px,2.7vw,34px);letter-spacing:-.05em; }.coupon-main span { margin-top:3px;font-size:13px;font-weight:800; }.coupon-mark { display:grid;min-width:90px;place-content:center;color:white;background:var(--navy);font-size:11px;font-weight:900;line-height:.8;text-align:center; }.coupon-mark b { color:var(--yellow);font-size:42px; }
+  .games-section { padding-block:120px 110px; }.games-section>.section-heading,.prize-section>.section-heading { max-width:720px;margin-bottom:42px; }.game-grid { display:grid;grid-template-columns:repeat(2,1fr);gap:18px; }
+  .game-card { --accent:var(--blue);overflow:hidden;border:2px solid transparent;border-radius:22px;background:white;box-shadow:0 12px 30px rgb(16 35 74 / 8%);transition:transform 180ms ease,border-color 180ms ease,box-shadow 180ms ease; }.game-card.accent-navy { --accent:var(--navy2); }.game-card.accent-orange { --accent:var(--orange); }.game-card.accent-yellow { --accent:#e6ac00; }.game-card:hover { transform:translateY(-4px);box-shadow:0 18px 35px rgb(16 35 74 / 14%); }.game-card.is-selected { border-color:var(--accent);box-shadow:0 0 0 5px color-mix(in srgb,var(--accent) 14%,transparent),0 18px 35px rgb(16 35 74 / 14%); }
+  .game-card button { display:block;width:100%;padding:28px;border:0;color:inherit;background:transparent;text-align:left;cursor:pointer; }.card-top { display:flex;align-items:center;justify-content:space-between; }.game-number { color:var(--accent);font-size:12px;font-weight:900;letter-spacing:.12em; }.game-icon { display:grid;width:50px;height:50px;place-items:center;border-radius:15px;color:white;background:var(--accent);font-size:22px;font-weight:900;transform:rotate(4deg); }
+  .game-card h3 { margin:25px 0 8px;font-size:clamp(25px,3vw,36px);letter-spacing:-.055em; }.game-card button>p { min-height:48px;margin:0 0 24px;color:#64708a;font-size:15px;line-height:1.55; }.game-card dl { display:grid;gap:9px;margin:0;padding-top:20px;border-top:1px solid #e7eaf0; }.game-card dl div { display:grid;grid-template-columns:52px 1fr;gap:10px; }.game-card dt { color:var(--accent);font-size:9px;font-weight:900;letter-spacing:.08em; }.game-card dd { margin:0;font-size:12px;font-weight:700; }.detail-link { display:flex;justify-content:space-between;margin-top:22px;color:var(--accent);font-size:13px;font-weight:900; }.detail-link i { font-style:normal;transition:transform 180ms ease; }.game-card:hover .detail-link i { transform:translateX(5px); }
+  .game-detail { margin-top:30px;scroll-margin-top:20px; }.detail-panel { --detail:var(--blue);padding:clamp(28px,5vw,62px);border-radius:28px;color:white;background:var(--navy);box-shadow:0 24px 55px rgb(7 30 69 / 20%);animation:detail-in 300ms ease both; }.detail-panel.accent-navy { --detail:var(--sky); }.detail-panel.accent-orange { --detail:var(--orange); }.detail-panel.accent-yellow { --detail:var(--yellow); }
+  .detail-heading { display:flex;align-items:center;justify-content:space-between;gap:25px;padding-bottom:24px;border-bottom:1px solid rgb(255 255 255 / 15%); }.detail-heading span { color:var(--detail);font-size:10px;font-weight:900;letter-spacing:.12em; }.detail-heading h2 { margin:7px 0 0;font-size:clamp(35px,5vw,62px);letter-spacing:-.065em; }.detail-icon { display:grid;width:74px;height:74px;flex:0 0 auto;place-items:center;border:2px solid var(--detail);border-radius:50%;font-size:28px!important; }.detail-intro { max-width:750px;margin:30px 0 45px;color:rgb(255 255 255 / 72%);font-size:clamp(16px,2vw,20px);line-height:1.7; }
+  .detail-grid { display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(35px,7vw,85px); }.detail-grid h3 { margin:0 0 22px;color:var(--detail);font-size:13px;letter-spacing:.08em; }.how-to ol { display:grid;gap:14px;margin:0;padding:0;list-style:none;counter-reset:steps; }.how-to li { display:grid;grid-template-columns:32px 1fr;gap:12px;align-items:center;color:rgb(255 255 255 / 86%);font-size:14px;counter-increment:steps; }.how-to li::before { display:grid;width:30px;height:30px;place-items:center;border-radius:9px;color:var(--navy);background:var(--detail);content:counter(steps);font-size:11px;font-weight:900; }
+  .detail-info { display:grid;margin:0; }.detail-info div { padding:13px 0;border-bottom:1px solid rgb(255 255 255 / 12%); }.detail-info dt { margin-bottom:5px;color:var(--detail);font-size:10px;font-weight:900; }.detail-info dd { margin:0;font-size:13px;font-weight:700; }.detail-info .notice { margin-top:12px;padding:14px 16px;border:0;border-radius:12px;background:rgb(255 255 255 / 8%); }
+  .prize-section { padding-block:100px 130px; }.prize-list { display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:0;padding:0;list-style:none; }.prize-list li { display:flex;flex-direction:column;gap:22px;min-height:190px;justify-content:space-between;padding:24px;border:1px solid #e1e5ee;border-radius:20px;background:white;box-shadow:0 12px 25px rgb(16 35 74 / 6%); }.prize-list strong { font-size:17px; }.prize-icon { display:grid;width:62px;height:62px;place-items:center;border-radius:20px 50% 45% 25px;color:white;background:var(--blue);font-size:24px;font-weight:900;transform:rotate(-5deg); }.prize-2 { background:var(--orange);transform:rotate(6deg); }.prize-3 { color:var(--navy);background:var(--yellow); }.prize-4 { background:var(--navy);transform:rotate(5deg); }
+  footer { display:flex;justify-content:space-between;align-items:end;padding-block:35px;border-top:1px solid #d9dce4; }footer div { display:flex;flex-direction:column;gap:5px; }footer strong { font-size:15px; }footer div span { color:#788198;font-size:12px; }footer a { color:var(--navy);font-size:13px;font-weight:900;text-decoration:none; }
+  @keyframes detail-in { from { opacity:0;transform:translateY(8px); } }
+  @media(max-width:850px) { .play-page { background:linear-gradient(180deg,var(--navy) 0 1050px,var(--cream) 1050px); }.hero { grid-template-columns:1fr;padding-block:55px 95px; }.poster-card { width:min(100%,390px); }.coupon-section { grid-template-columns:1fr;gap:30px; }.coupon { grid-template-columns:1fr; }.coupon-single { border-right:0;border-bottom:2px dashed var(--navy); }.coupon-mark { min-height:70px; }.detail-grid { grid-template-columns:1fr; }.prize-list { grid-template-columns:repeat(2,1fr); } }
+  @media(max-width:600px) { .shell,.site-header,footer { width:min(100% - 24px,1180px); }.site-header { align-items:flex-start;flex-direction:column;gap:16px;padding:18px 0; }.site-header nav { width:100%;justify-content:space-between; }.hero { min-height:auto;padding-top:45px; }.hero h1 { font-size:clamp(48px,16vw,70px); }.event-badges { display:grid; }.poster-card { box-shadow:8px 9px 0 var(--orange);transform:none; }.coupon-section { width:calc(100% - 24px);margin-top:-42px;padding:30px 18px;border-radius:20px; }.coupon-single,.coupon-main { padding:21px; }.games-section { padding-block:85px 80px; }.game-grid { grid-template-columns:1fr; }.game-card button { padding:23px; }.detail-panel { border-radius:20px; }.detail-icon { width:56px;height:56px; }.prize-section { padding-block:75px 90px; }.prize-list { grid-template-columns:repeat(2,1fr);gap:9px; }.prize-list li { min-height:155px;padding:18px; }.prize-list strong { font-size:14px; }.prize-icon { width:52px;height:52px; }footer { align-items:flex-start;flex-direction:column;gap:25px; } }
+  @media(prefers-reduced-motion:reduce) { .game-card,.detail-link i { transition:none; }.detail-panel { animation:none; } }
+</style>
