@@ -88,6 +88,10 @@ const posterSrc = `${base}${eventInfo.posterImage}`;
       buttons.forEach((item) => item.setAttribute('aria-pressed', String(item === button)));
       cards.forEach((card) => card.classList.toggle('is-selected', card.getAttribute('data-game-card') === id));
       panels.forEach((panel) => panel.toggleAttribute('hidden', panel.getAttribute('data-game-panel') !== id));
+      document.querySelector('#game-detail')?.scrollIntoView({
+        behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+        block: 'start',
+      });
     }));
   </script>
 </Layout>
