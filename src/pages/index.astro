@@ -70,7 +70,10 @@ const base = import.meta.env.BASE_URL;
 	.market-link.food .menu-underline { right: -3%; left: 19%; }
 	.market-link.goods .menu-underline { right: 1%; left: 15%; }
 	.menu-underline::before { position: absolute; inset: 0; content: ''; border-radius: 48% 52% 45% 55% / 65% 45% 55% 35%; opacity: .72; background: var(--underline-color); transform: skewX(-5deg); transition: opacity 200ms ease, height 200ms ease; }
-	.menu-underline::after { position: absolute; top: 0; bottom: 0; left: 0; width: 30%; content: ''; border-radius: 999px; background: linear-gradient(90deg, transparent, rgb(255 255 255 / 95%), transparent); filter: blur(.5px); animation: underline-shine 2.1s ease-in-out infinite; }
+	.menu-underline::after { position: absolute; top: 0; bottom: 0; left: 0; width: 30%; content: ''; border-radius: 999px; opacity: .72; filter: blur(.25px); animation: underline-shine 2.1s ease-in-out infinite; }
+	.market-link.food .menu-underline::after { background: linear-gradient(90deg, transparent, #ff6f8f, transparent); }
+	.market-link.goods .menu-underline::after { background: linear-gradient(90deg, transparent, #49dfc8, transparent); }
+	.market-link.play .menu-underline::after { background: linear-gradient(90deg, transparent, #7b75ff, transparent); }
 	.market-link.goods .menu-underline::after { animation-delay: .3s; }
 	.market-link.play .menu-underline::after { animation-delay: .6s; }
 	.market-link:hover .menu-underline, .market-link:focus-visible .menu-underline { filter: drop-shadow(0 0 4px rgb(255 255 255 / 68%)); transform: scaleX(1.025) rotate(var(--underline-rotation)); }
