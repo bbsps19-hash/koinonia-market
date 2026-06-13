@@ -9,10 +9,10 @@ const base = import.meta.env.BASE_URL;
 		<button class="intro__skip" type="button" data-skip>건너뛰기</button>
 	</div>
 
-	<main class="market" data-market aria-label="코이노니아 마켓 메인" style={`--poster-url: url(${base}/assets/koinonia-market-base.png)`}>
+	<main class="market" data-market aria-label="코이노니아 마켓 메인" style={`--poster-url: url(${base}/assets/koinonia-market.png)`}>
 		<div class="market__backdrop" aria-hidden="true"></div>
 		<section class="market__poster">
-			<img src={`${base}/assets/koinonia-market-base.png`} alt="코이노니아 마켓" width="1448" height="1086" fetchpriority="high" />
+			<img src={`${base}/assets/koinonia-market.png`} alt="코이노니아 마켓" width="1448" height="1086" fetchpriority="high" />
 			<nav class="market__nav" aria-label="마켓 둘러보기">
 				<a class="market-link hotspot food" href={`${base}/food/`} aria-label="먹거리 페이지로 이동"><span class="hand-drawn-circle" aria-hidden="true"></span></a>
 				<a class="market-link hotspot goods" href={`${base}/goods/`} aria-label="팔거리 페이지로 이동"><span class="hand-drawn-circle" aria-hidden="true"></span></a>
