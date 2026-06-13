@@ -14,9 +14,9 @@ const base = import.meta.env.BASE_URL;
 		<section class="market__poster">
 			<img src={`${base}/assets/koinonia-market.png`} alt="코이노니아 마켓" width="1448" height="1086" fetchpriority="high" />
 			<nav class="market__nav" aria-label="마켓 둘러보기">
-				<a class="market-link hotspot food" href={`${base}/food/`} aria-label="먹거리 페이지로 이동"><span class="hand-drawn-circle" aria-hidden="true"></span></a>
-				<a class="market-link hotspot goods" href={`${base}/goods/`} aria-label="팔거리 페이지로 이동"><span class="hand-drawn-circle" aria-hidden="true"></span></a>
-				<a class="market-link hotspot play" href={`${base}/play/`} aria-label="놀거리 페이지로 이동"><span class="hand-drawn-circle" aria-hidden="true"></span></a>
+				<a class="market-link hotspot food" href={`${base}/food/`} aria-label="먹거리 페이지로 이동"><span class="menu-underline" aria-hidden="true"></span></a>
+				<a class="market-link hotspot goods" href={`${base}/goods/`} aria-label="팔거리 페이지로 이동"><span class="menu-underline" aria-hidden="true"></span></a>
+				<a class="market-link hotspot play" href={`${base}/play/`} aria-label="놀거리 페이지로 이동"><span class="menu-underline" aria-hidden="true"></span></a>
 			</nav>
 		</section>
 	</main>
@@ -62,16 +62,23 @@ const base = import.meta.env.BASE_URL;
 	.market.is-visible .market__poster { animation: poster-rise 1000ms cubic-bezier(.16, 1, .3, 1) 100ms both; }
 	.market__poster > img:first-child { display: block; width: 100%; height: auto; }
 	.market__nav { position: absolute; inset: 0; }
-	.market-link { --circle-color: #ef3b65; --circle-rotation: -2deg; position: absolute; z-index: 1; border-radius: 24px; cursor: pointer; text-decoration: none; -webkit-tap-highlight-color: transparent; }
-	.market-link.food { --circle-color: #ef3b65; --circle-rotation: -2deg; left: 7%; top: 34%; width: 27%; height: 18%; }
-	.market-link.goods { --circle-color: #16a58f; --circle-rotation: 2deg; left: 36%; top: 34%; width: 27%; height: 18%; }
-	.market-link.play { --circle-color: #5147d9; --circle-rotation: -3deg; left: 65%; top: 34%; width: 28%; height: 18%; }
-	.hand-drawn-circle { position: absolute; inset: -7% -5%; border: clamp(2px, .28vw, 4px) solid var(--circle-color); border-radius: 48% 52% 46% 54% / 55% 45% 52% 48%; opacity: .72; pointer-events: none; transform: rotate(var(--circle-rotation)); transition: opacity 200ms ease, transform 200ms ease, filter 200ms ease; }
-	.hand-drawn-circle::after { position: absolute; inset: clamp(2px, .3vw, 5px) clamp(-2px, -.12vw, -1px) clamp(-3px, -.2vw, -1px) clamp(1px, .18vw, 3px); content: ''; border: clamp(1px, .13vw, 2px) solid color-mix(in srgb, var(--circle-color) 72%, transparent); border-radius: 52% 48% 54% 46% / 47% 53% 45% 55%; opacity: .58; transform: rotate(1.5deg); }
-	.market-link:hover .hand-drawn-circle, .market-link:focus-visible .hand-drawn-circle { opacity: 1; filter: drop-shadow(0 0 5px rgb(255 255 255 / 72%)); transform: scale(1.035) rotate(var(--circle-rotation)); }
-	.market-link:focus-visible { outline: 3px solid rgb(255 255 255 / 92%); outline-offset: 4px; }
-	.market-link:active .hand-drawn-circle { opacity: 1; transform: scale(1.015) rotate(var(--circle-rotation)); }
+	.market-link { --underline-color: #ef3b65; --underline-rotation: -1deg; --underline-bottom: 4%; position: absolute; z-index: 1; cursor: pointer; text-decoration: none; -webkit-tap-highlight-color: transparent; }
+	.market-link.food { --underline-color: #ef3b65; --underline-rotation: -1deg; left: 7%; top: 34%; width: 27%; height: 18%; }
+	.market-link.goods { --underline-color: #16a58f; --underline-rotation: 1deg; --underline-bottom: 3%; left: 36%; top: 34%; width: 27%; height: 18%; }
+	.market-link.play { --underline-color: #5147d9; --underline-rotation: -1deg; --underline-bottom: 3%; left: 65%; top: 34%; width: 28%; height: 18%; }
+	.menu-underline { position: absolute; right: 8%; bottom: var(--underline-bottom); left: 8%; height: clamp(3px, .38vw, 6px); overflow: hidden; pointer-events: none; transform: rotate(var(--underline-rotation)); transition: opacity 200ms ease, transform 200ms ease, filter 200ms ease; }
+	.menu-underline::before { position: absolute; inset: 0; content: ''; border-radius: 48% 52% 45% 55% / 65% 45% 55% 35%; opacity: .72; background: var(--underline-color); transform: skewX(-5deg); transition: opacity 200ms ease, height 200ms ease; }
+	.menu-underline::after { position: absolute; top: 0; bottom: 0; left: 0; width: 30%; content: ''; border-radius: 999px; background: linear-gradient(90deg, transparent, rgb(255 255 255 / 95%), transparent); filter: blur(.5px); animation: underline-shine 2.1s ease-in-out infinite; }
+	.market-link.goods .menu-underline::after { animation-delay: .3s; }
+	.market-link.play .menu-underline::after { animation-delay: .6s; }
+	.market-link:hover .menu-underline, .market-link:focus-visible .menu-underline { filter: drop-shadow(0 0 4px rgb(255 255 255 / 68%)); transform: scaleX(1.025) rotate(var(--underline-rotation)); }
+	.market-link:hover .menu-underline::before, .market-link:focus-visible .menu-underline::before { opacity: 1; }
+	.market-link:hover .menu-underline::after, .market-link:focus-visible .menu-underline::after { animation-duration: 1.25s; }
+	.market-link:focus-visible { outline: none; }
+	.market-link:focus-visible .menu-underline { filter: drop-shadow(0 0 5px white); }
+	.market-link:active .menu-underline { transform: scaleX(1.01) rotate(var(--underline-rotation)); }
 	@keyframes poster-rise { 0% { opacity: 0; transform: translateY(110vh) scale(.96); } 70% { opacity: 1; transform: translateY(-2.2%) scale(1); } 100% { opacity: 1; transform: none; } }
+	@keyframes underline-shine { 0% { opacity: 0; transform: translateX(-130%); } 18% { opacity: .8; } 62% { opacity: .8; } 100% { opacity: 0; transform: translateX(430%); } }
 	@media (max-width: 640px) {
 		.market { padding: 10px; }
 		.market__poster { width: 100%; }
@@ -80,5 +87,6 @@ const base = import.meta.env.BASE_URL;
 		.intro { display: none; }
 		.market, .market__poster { opacity: 1; transform: none; }
 		.market.is-visible .market__poster { animation: none; }
+		.menu-underline::after { animation: none; opacity: .35; transform: translateX(230%); }
 	}
 </style>
