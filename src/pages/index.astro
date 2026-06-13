@@ -13,11 +13,10 @@ const base = import.meta.env.BASE_URL;
 		<div class="market__backdrop" aria-hidden="true"></div>
 		<section class="market__poster">
 			<img src={`${base}/assets/koinonia-market-base.png`} alt="코이노니아 마켓" width="1448" height="1086" fetchpriority="high" />
-			<img class="waving-hand" src={`${base}/assets/koinonia-hand.png`} alt="" width="188" height="145" aria-hidden="true" />
 			<nav class="market__nav" aria-label="마켓 둘러보기">
-				<a class="market-link hotspot food" href={`${base}/food/`} aria-label="먹거리 페이지로 이동"><span>먹거리 보러가기</span></a>
-				<a class="market-link hotspot goods" href={`${base}/goods/`} aria-label="팔거리 페이지로 이동"><span>팔거리 보러가기</span></a>
-				<a class="market-link hotspot play" href={`${base}/play/`} aria-label="놀거리 페이지로 이동"><span>놀거리 보러가기</span></a>
+				<a class="market-link hotspot food" href={`${base}/food/`} aria-label="먹거리 페이지로 이동"><span class="hand-drawn-circle" aria-hidden="true"></span></a>
+				<a class="market-link hotspot goods" href={`${base}/goods/`} aria-label="팔거리 페이지로 이동"><span class="hand-drawn-circle" aria-hidden="true"></span></a>
+				<a class="market-link hotspot play" href={`${base}/play/`} aria-label="놀거리 페이지로 이동"><span class="hand-drawn-circle" aria-hidden="true"></span></a>
 			</nav>
 		</section>
 	</main>
@@ -62,40 +61,17 @@ const base = import.meta.env.BASE_URL;
 	.market.is-visible { opacity: 1; }
 	.market.is-visible .market__poster { animation: poster-rise 1000ms cubic-bezier(.16, 1, .3, 1) 100ms both; }
 	.market__poster > img:first-child { display: block; width: 100%; height: auto; }
-	.waving-hand { position: absolute; top: 0; left: 87.016%; z-index: 2; width: 12.983%; height: 13.352%; object-fit: contain; transform-origin: 58% 96%; will-change: transform; pointer-events: none; }
-	.market.is-visible .waving-hand { animation: none; }
 	.market__nav { position: absolute; inset: 0; }
-	.market-link { position: absolute; z-index: 1; border-radius: 24px; color: white; cursor: pointer; text-decoration: none; transition: background 200ms ease, box-shadow 200ms ease, transform 200ms ease; }
-	.market-link.food { --sparkle-main: #ff3f32; --sparkle-soft: #ff9a58; left: 7%; top: 34%; width: 27%; height: 18%; }
-	.market-link.goods { --sparkle-main: #ffe135; --sparkle-soft: #7dff63; left: 36%; top: 34%; width: 27%; height: 18%; }
-	.market-link.play { --sparkle-main: #28b9ff; --sparkle-soft: #79e9ff; left: 65%; top: 34%; width: 28%; height: 18%; }
-	.market-link::before, .market-link::after { position: absolute; z-index: 3; line-height: 1; pointer-events: none; transform-origin: center; }
-	.market-link::after { content: '✦'; font-size: clamp(17px, 2vw, 32px); color: var(--sparkle-main); text-shadow: 0 0 4px white, 0 0 12px var(--sparkle-main), 0 0 26px var(--sparkle-main), 0 0 38px var(--sparkle-main); animation: sparkle-blink 1.6s ease-in-out infinite; }
-	.market-link::before { content: '✧'; font-size: clamp(9px, 1.05vw, 17px); color: var(--sparkle-soft); text-shadow: 0 0 4px white, 0 0 11px var(--sparkle-soft), 0 0 22px var(--sparkle-soft); animation: sparkle-drift 1.6s ease-in-out .18s infinite; }
-	.market-link.food::after { left: 2%; top: -8%; }
-	.market-link.food::before { left: 13%; top: 5%; }
-	.market-link.goods::after { left: 5%; top: -10%; animation-delay: .25s; }
-	.market-link.goods::before { left: 16%; top: 3%; animation-delay: .43s; }
-	.market-link.play::after { right: 2%; top: -10%; animation-delay: .5s; }
-	.market-link.play::before { right: 14%; top: 4%; animation-delay: .68s; }
-	.market-link:hover::after, .market-link:focus-visible::after { animation-duration: .8s; filter: brightness(1.15); }
-	.market-link:hover::before, .market-link:focus-visible::before { animation-duration: .8s; filter: brightness(1.15); }
-	.market-link span { position: absolute; left: 50%; bottom: -13px; padding: 7px 11px; border: 1px solid rgb(255 255 255 / 62%); border-radius: 999px; opacity: 0; color: white; background: rgb(38 29 19 / 78%); box-shadow: 0 6px 18px rgb(31 22 12 / 24%); font-size: clamp(8px, .9vw, 12px); font-weight: 800; white-space: nowrap; pointer-events: none; transform: translate(-50%, 7px); transition: opacity 200ms ease, transform 200ms ease; backdrop-filter: blur(8px); }
-	.market-link:hover { z-index: 3; background: rgb(255 255 255 / 13%); box-shadow: 0 0 0 2px rgb(255 255 255 / 48%), 0 12px 30px rgb(255 255 255 / 18%), inset 0 0 28px rgb(255 255 255 / 12%); transform: scale(1.03); }
-	.market-link:hover span, .market-link:focus-visible span { opacity: 1; transform: translate(-50%, 0); }
-	.market-link:focus-visible { z-index: 4; outline: 3px solid white; outline-offset: 3px; background: rgb(255 255 255 / 14%); box-shadow: 0 0 24px rgb(255 255 255 / 28%); transform: scale(1.03); }
-	.market-link:active { background: rgb(255 255 255 / 22%); box-shadow: inset 0 0 24px rgb(255 255 255 / 18%); transform: scale(1.01); }
-	@keyframes hand-wave {
-		0%, 8%, 62%, 100% { transform: translate(0, 0) rotate(0deg); }
-		16% { transform: translate(-7%, -2%) rotate(-20deg); }
-		25% { transform: translate(6%, 1%) rotate(17deg); }
-		34% { transform: translate(-6%, -2%) rotate(-18deg); }
-		43% { transform: translate(5%, 1%) rotate(14deg); }
-		52% { transform: translate(-3%, -1%) rotate(-9deg); }
-	}
+	.market-link { --circle-color: #ef3b65; --circle-rotation: -2deg; position: absolute; z-index: 1; border-radius: 24px; cursor: pointer; text-decoration: none; -webkit-tap-highlight-color: transparent; }
+	.market-link.food { --circle-color: #ef3b65; --circle-rotation: -2deg; left: 7%; top: 34%; width: 27%; height: 18%; }
+	.market-link.goods { --circle-color: #16a58f; --circle-rotation: 2deg; left: 36%; top: 34%; width: 27%; height: 18%; }
+	.market-link.play { --circle-color: #5147d9; --circle-rotation: -3deg; left: 65%; top: 34%; width: 28%; height: 18%; }
+	.hand-drawn-circle { position: absolute; inset: -7% -5%; border: clamp(2px, .28vw, 4px) solid var(--circle-color); border-radius: 48% 52% 46% 54% / 55% 45% 52% 48%; opacity: .72; pointer-events: none; transform: rotate(var(--circle-rotation)); transition: opacity 200ms ease, transform 200ms ease, filter 200ms ease; }
+	.hand-drawn-circle::after { position: absolute; inset: clamp(2px, .3vw, 5px) clamp(-2px, -.12vw, -1px) clamp(-3px, -.2vw, -1px) clamp(1px, .18vw, 3px); content: ''; border: clamp(1px, .13vw, 2px) solid color-mix(in srgb, var(--circle-color) 72%, transparent); border-radius: 52% 48% 54% 46% / 47% 53% 45% 55%; opacity: .58; transform: rotate(1.5deg); }
+	.market-link:hover .hand-drawn-circle, .market-link:focus-visible .hand-drawn-circle { opacity: 1; filter: drop-shadow(0 0 5px rgb(255 255 255 / 72%)); transform: scale(1.035) rotate(var(--circle-rotation)); }
+	.market-link:focus-visible { outline: 3px solid rgb(255 255 255 / 92%); outline-offset: 4px; }
+	.market-link:active .hand-drawn-circle { opacity: 1; transform: scale(1.015) rotate(var(--circle-rotation)); }
 	@keyframes poster-rise { 0% { opacity: 0; transform: translateY(110vh) scale(.96); } 70% { opacity: 1; transform: translateY(-2.2%) scale(1); } 100% { opacity: 1; transform: none; } }
-	@keyframes sparkle-blink { 0%, 100% { opacity: .55; transform: scale(.82) rotate(0deg) translateY(0); } 50% { opacity: 1; transform: scale(1.25) rotate(12deg) translateY(-3px); } }
-	@keyframes sparkle-drift { 0%, 100% { opacity: .5; transform: scale(.86) rotate(-5deg) translateY(1px); } 50% { opacity: .9; transform: scale(1.12) rotate(6deg) translateY(-2px); } }
 	@media (max-width: 640px) {
 		.market { padding: 10px; }
 		.market__poster { width: 100%; }
@@ -103,7 +79,6 @@ const base = import.meta.env.BASE_URL;
 	@media (prefers-reduced-motion: reduce) {
 		.intro { display: none; }
 		.market, .market__poster { opacity: 1; transform: none; }
-		.market.is-visible .market__poster, .market.is-visible .waving-hand { animation: none; }
-		.market-link::before, .market-link::after { animation: none; opacity: .8; }
+		.market.is-visible .market__poster { animation: none; }
 	}
 </style>
