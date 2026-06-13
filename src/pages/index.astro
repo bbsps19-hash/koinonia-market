@@ -67,7 +67,7 @@ const base = import.meta.env.BASE_URL;
 	.market-link.goods { --underline-color: #16a58f; --underline-rotation: 1deg; --underline-bottom: 3%; left: 36%; top: 34%; width: 27%; height: 18%; }
 	.market-link.play { --underline-color: #5147d9; --underline-rotation: -1deg; --underline-bottom: 3%; left: 65%; top: 34%; width: 28%; height: 18%; }
 	.menu-underline { position: absolute; right: 8%; bottom: var(--underline-bottom); left: 8%; height: clamp(3px, .38vw, 6px); overflow: hidden; pointer-events: none; transform: rotate(var(--underline-rotation)); transition: opacity 200ms ease, transform 200ms ease, filter 200ms ease; }
-	.market-link.food .menu-underline { right: 2%; left: 14%; }
+	.market-link.food .menu-underline { right: 0%; left: 16%; }
 	.market-link.goods .menu-underline { right: 4%; left: 12%; }
 	.menu-underline::before { position: absolute; inset: 0; content: ''; border-radius: 48% 52% 45% 55% / 65% 45% 55% 35%; opacity: .72; background: var(--underline-color); transform: skewX(-5deg); transition: opacity 200ms ease, height 200ms ease; }
 	.menu-underline::after { position: absolute; top: 0; bottom: 0; left: 0; width: 30%; content: ''; border-radius: 999px; background: linear-gradient(90deg, transparent, rgb(255 255 255 / 95%), transparent); filter: blur(.5px); animation: underline-shine 2.1s ease-in-out infinite; }
