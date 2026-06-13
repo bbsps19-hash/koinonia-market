@@ -1,5 +1,6 @@
 ---
 import GameDetailPage from '../../../components/play/GameDetailPage.astro';
+import BoardGamePage from '../../../components/play/BoardGamePage.astro';
 import { playGames } from '../../../data/play.js';
 
 export function getStaticPaths() {
@@ -8,4 +9,4 @@ export function getStaticPaths() {
 
 const { game } = Astro.props;
 ---
-<GameDetailPage {game} />
+{game.id === 'board-game' ? <BoardGamePage /> : <GameDetailPage {game} />}
