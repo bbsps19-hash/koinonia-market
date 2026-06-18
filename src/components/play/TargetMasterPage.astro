@@ -33,13 +33,8 @@ const drawPrizes = game.drawPrizes.map((prize) => ({ ...prize, image: asset(priz
         <ul class="description-list">{game.gameDescription.map((item) => <li><span aria-hidden="true">◎</span>{item}</li>)}</ul>
       </section>
 
-      <section class="panel" aria-labelledby="steps-title">
-        <div class="section-heading"><p>HOW TO PLAY</p><h2 id="steps-title">게임 방법</h2></div>
-        <ol class="steps">{game.steps.map((step, index) => <li><span>STEP {index + 1}</span><p>{step}</p></li>)}</ol>
-      </section>
-
       <section class="panel" aria-labelledby="themes-title">
-        <div class="section-heading"><p>CHOOSE A THEME</p><h2 id="themes-title">테마 선택</h2><p class="lead">원하는 테마를 선택하면 해당 테마의 모니터 화면과 사운드를 들으며 게임을 진행할 수 있습니다.</p><span class="support">아케이드, 메탈슬러그, 스타워즈 중 원하는 테마를 고르거나 랜덤으로 즐길 수 있어요.</span></div>
+        <div class="section-heading"><p>CHOOSE A THEME</p><h2 id="themes-title">테마 선택</h2></div>
         <div class="theme-grid">
           {game.themes.map((theme) => (
             <article class="theme-card">
@@ -61,7 +56,6 @@ const drawPrizes = game.drawPrizes.map((prize) => ({ ...prize, image: asset(priz
       </section>
       <section class="panel reward-panel" aria-labelledby="rewards-title">
         <div class="section-heading"><p>CAPSULE REWARD</p><h2 id="rewards-title">보상</h2><p class="lead">점수에 따라 캡슐을 획득하고, 캡슐 속 다양한 선물을 받을 수 있습니다.</p></div>
-        <ul class="reward-rules">{game.rewards.map((reward, index) => <li><span>{index + 1}</span>{reward}</li>)}</ul>
         <div class="capsule-gift-grid">
           <article class="gift-guide"><span class="gift-capsule" aria-hidden="true"></span><div><p>CAPSULE GIFT</p><h3>캡슐 뽑기 선물</h3><strong>캡슐 속 종이에 적힌 선물을 받아가세요!</strong><span>왁뿌볼, 말랑이, 키링 등 다양한 선물</span></div></article>
           <article class="draw-game" aria-labelledby="draw-title"><div class="draw-copy"><p>JUST FOR FUN</p><h3 id="draw-title">당신의 랜덤뽑기는?</h3><span>페이지에서 재미로 확인하는 미니게임이에요.</span></div><div class="draw-result" data-draw-result aria-live="polite"><div class="draw-placeholder" data-draw-placeholder><span aria-hidden="true">?</span><strong>아직 뽑기 전이에요!</strong></div><div class="draw-win" data-draw-win hidden><img data-prize-image alt="" /><p data-prize-text></p></div></div><button type="button" class="draw-button" data-draw-button>랜덤 뽑기</button></article>
