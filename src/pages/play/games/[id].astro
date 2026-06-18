@@ -2,6 +2,7 @@
 import GameDetailPage from '../../../components/play/GameDetailPage.astro';
 import BoardGamePage from '../../../components/play/BoardGamePage.astro';
 import LuckyDrawPage from '../../../components/play/LuckyDrawPage.astro';
+import CupBattlePage from '../../../components/play/CupBattlePage.astro';
 import { playGames } from '../../../data/play.js';
 
 export function getStaticPaths() {
@@ -10,4 +11,4 @@ export function getStaticPaths() {
 
 const { game } = Astro.props;
 ---
-{game.id === 'board-game' ? <BoardGamePage /> : game.id === 'lucky-draw' ? <LuckyDrawPage /> : <GameDetailPage {game} />}
+{game.id === 'board-game' ? <BoardGamePage /> : game.id === 'lucky-draw' ? <LuckyDrawPage /> : game.id === 'cup-battle' ? <CupBattlePage /> : <GameDetailPage {game} />}

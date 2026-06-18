@@ -41,15 +41,15 @@ export const playGames = [
   },
   {
     id: 'cup-battle', number: '04', title: '컵 땅따먹기', icon: 'VS', accent: 'yellow',
-    shortDescription: '풍선이 떨어지기 전까지 상대팀 컵을 내 컵으로 덮어라!',
-    description: '하늘팀과 노랑팀으로 나뉘어 진행하는 팀 대항 미니게임입니다. 풍선을 공중에 띄운 뒤, 풍선이 바닥에 떨어지기 전까지 상대팀 컵을 내 팀 컵으로 덮어씌우는 방식으로 진행됩니다.',
-    peopleAndItems: ['팀별 1~2명', '하늘팀 풍선 1개', '노랑팀 풍선 1개', '각 팀 색상의 종이컵 28개'],
-    howToPlay: ['하늘팀과 노랑팀으로 팀을 나눕니다.', '턴을 잡은 팀은 자기 팀 풍선을 공중에 띄웁니다.', '풍선이 바닥에 떨어지기 전까지 상대팀 컵을 내 팀 컵으로 덮어씌웁니다.', '풍선이 바닥에 떨어지면 즉시 공격을 멈춥니다.', '턴을 교대하여 같은 방식으로 진행합니다.', '상대팀 컵을 모두 덮어 내 팀 컵만 남기면 승리합니다.'],
-    winCondition: '상대팀 컵을 모두 덮어 내 팀 컵만 남긴 팀이 승리합니다.',
-    prizeRule: '승리까지 걸린 시간이 가장 짧은 상위 3팀에게 상품을 지급합니다.',
+    shortDescription: '누가 더 빨리 상대팀 컵을 차지할까?',
+    description: '컵 땅따먹기 대항전!',
+    peopleAndItems: ['팀별(하늘/노랑) 1~3명', '각 팀 색상의 풍선 1개와 종이컵 28개'],
+    howToPlay: ['턴을 잡은 팀은 풍선을 공중에 띄웁니다.', '풍선이 떨어지기 전까지, 내 컵으로 상대팀 컵을 덮어씌웁니다.', '풍선이 바닥에 떨어지기 전에 잡아야 하고 턴을 교대합니다.', '풍선이 바닥에 떨어지면 즉시 패배하니 유의하여야 합니다.'],
+    winCondition: '상대팀 컵을 모두 덮어 내 팀 컵만 남기면 승리합니다.',
+    winnerPrize: '상품 지급', loserPrize: '간식 지급',
+    ticketNotice: '인원 상관없이 팀별 티켓 1장 필요', ticketCount: '총 2장',
     price: '게임당 3,000원', location: '1층 큰숲홀 놀거리 부스', time: '6.21(일) 오후 4~6시',
-    notice: '풍선이 바닥에 떨어지면 바로 손을 멈추고, 상대방을 밀치거나 방해하지 않도록 주의해주세요.',
-    detailPath: '/play/games/cup-battle', mediaType: 'video', mediaSrc: '/ready/컵땅따먹기 예시.mp4',
+    detailPath: '/play/games/cup-battle', posterImage: '/ready/cup-battle-poster-2026-v2.png',
   },
 ];
 
