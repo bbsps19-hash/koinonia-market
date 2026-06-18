@@ -26,22 +26,22 @@ export const playGames = [
     detailPath: '/play/games/cup-battle', posterImage: '/ready/cup-battle-poster-2026-v3.png', mediaSrc: '/ready/컵땅따먹기 예시.mp4',
   },
   {
-    id: 'hit-bottle-cap', number: '02', title: '적중 병뚜껑', icon: '●', accent: 'blue',
+    id: 'hit-bingo', number: '02', title: '적중 빙고', icon: '▦', accent: 'blue',
+    cardImage: '/ready/적중빙고.jpg', imageAlt: '적중 빙고 게임 안내 포스터',
+    shortDescription: '탁구공 10개로 계란판에 한 줄 빙고를 완성하세요!',
+    price: '게임당 3,000원', location: '1층 큰숲홀 놀거리 부스', detailPath: '/play/hit-bingo',
+  },
+  {
+    id: 'hit-bottle-cap', number: '03', title: '적중 병뚜껑', icon: '●', accent: 'blue',
     cardImage: '/ready/적중병뚜껑.jpg', imageAlt: '적중 병뚜껑 게임 안내 포스터',
     shortDescription: '병뚜껑 3개를 손가락으로 튕겨 점수 구역에 정확히 안착시키세요!',
     price: '게임당 3,000원', location: '1층 큰숲홀 놀거리 부스', detailPath: '/play/hit-bottle-cap',
   },
   {
-    id: 'hit-time-attack', number: '03', title: '적중 타임어택', icon: '00', accent: 'orange',
+    id: 'hit-time-attack', number: '04', title: '적중 타임어택', icon: '00', accent: 'orange',
     cardImage: '/ready/적중타임어택.jpg', imageAlt: '적중 타임어택 게임 안내 포스터',
     shortDescription: '말씀의 장과 절에 맞춰 스마트폰 스톱워치를 정확히 멈추세요!',
     price: '게임당 3,000원', location: '1층 큰숲홀 놀거리 부스', detailPath: '/play/hit-time-attack',
-  },
-  {
-    id: 'hit-bingo', number: '04', title: '적중 빙고', icon: '▦', accent: 'blue',
-    cardImage: '/ready/적중빙고.jpg', imageAlt: '적중 빙고 게임 안내 포스터',
-    shortDescription: '탁구공 10개로 계란판에 한 줄 빙고를 완성하세요!',
-    price: '게임당 3,000원', location: '1층 큰숲홀 놀거리 부스', detailPath: '/play/hit-bingo',
   },
   {
     id: 'target-master', number: '05', title: '믿음의 명사수', icon: '◎', accent: 'orange',
