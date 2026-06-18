@@ -5,7 +5,6 @@ export const eventInfo = {
   date: '6.21(일) 오후 4~6시',
   location: '1층 큰숲홀',
   host: '4청 잇는공동체',
-  posterImage: '/ready/놀거리 포스터.png',
 };
 
 export const priceInfo = {
