@@ -23,7 +23,7 @@ export const playGames = [
     winCondition: '상대팀 컵을 모두 덮어 내 팀 컵만 남기면 승리합니다.', winnerPrize: '상품 지급', loserPrize: '간식 지급',
     ticketNotice: '인원 상관없이 팀별 티켓 1장 필요', ticketCount: '총 2장',
     price: '게임당 3,000원', location: '1층 큰숲홀 놀거리 부스', time: '6.21(일) 오후 4~6시',
-    detailPath: '/play/games/cup-battle', posterImage: '/ready/cup-battle-poster-2026-v3.png',
+    detailPath: '/play/games/cup-battle', posterImage: '/ready/cup-battle-poster-2026-v3.png', mediaSrc: '/ready/컵땅따먹기 예시.mp4',
   },
   {
     id: 'hit-bottle-cap', number: '02', title: '적중 병뚜껑', icon: '●', accent: 'blue',
