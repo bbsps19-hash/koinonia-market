@@ -35,7 +35,7 @@ const tickets = Array.from({ length: 45 }, (_, i) => String(i + 1).padStart(2, '
     <div class="prize-head"><div class="heading"><p>LUCKY PRIZES</p><h2 id="prizes-title">오늘의 상품</h2><span>문방구 앞 추억을 닮은 다섯 가지 행운을 준비했어요.</span></div><div class="total"><b>{luckyDraw.winnerCount}</b><span>명 당첨</span></div></div>
     <div class="prize-grid">{luckyDraw.prizes.map((prize,i)=><article class={`card c${i+1}`}><div class="rank"><span>{prize.rank}</span></div><div class={`art ${prize.image ? 'photo' : prize.type}`} aria-hidden="true">
       {prize.type==='voucher'&&<div class="voucher"><small>오헬모에드</small><b>1만원권</b><span>GIFT VOUCHER</span></div>}
-      {prize.type==='keyrings'&&<div class="keyrings"><div class="doll-keyring"><i></i><span>인형</span></div><div class="clover-keyring"><i></i><span>클로버</span></div></div>}
+      {prize.type==='keyrings' && !prize.image && <div class="keyrings"><div class="doll-keyring"><i></i><span>인형</span></div><div class="clover-keyring"><i></i><span>클로버</span></div></div>}
       {prize.image && <img src={base + prize.image} alt={prize.name} loading="lazy" />}
     </div><h3>{prize.name}</h3><p class="winner-count"><b>{prize.winners}명</b> 당첨</p></article>)}</div>
   </section>

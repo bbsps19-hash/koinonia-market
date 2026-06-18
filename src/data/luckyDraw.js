@@ -7,7 +7,7 @@ export const luckyDraw = {
   steps: ["번호를 뽑아요", "등수를 확인해요", "상품을 받아가요"],
   prizes: [
     { rank: "1등", name: "오헬모에드 1만원권", winners: 3, type: "voucher" },
-    { rank: "2등", name: "랜덤 키링(인형, 클로버)", winners: 7, type: "keyrings" },
+    { rank: "2등", name: "랜덤 키링(인형, 클로버)", winners: 7, type: "keyrings", image: "/selection/랜덤 키링.png" },
     { rank: "3등", name: "달고나사탕", winners: 30, type: "dalgona", image: "/selection/달고나.png" },
     { rank: "4등", name: "꿀과배기", winners: 150, type: "snack", image: "/selection/꿀꽈배기.jpg" },
     { rank: "5등", name: "멘토스 츄잉캔디", winners: 360, type: "candy", image: "/selection/멘토스 캔디.jpg" },
