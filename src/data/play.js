@@ -18,7 +18,7 @@ export const playGames = [
     id: 'cup-battle', number: '01', title: '컵 땅따먹기 대항전', icon: 'VS', accent: 'yellow',
     cardImage: '/ready/cup-battle-poster-2026-v3.png', imageAlt: '컵 땅따먹기 대항전 안내 포스터',
     shortDescription: '누가 더 빨리 상대팀 컵을 차지할까?', description: '컵 땅따먹기 대항전!',
-    peopleAndItems: ['팀별(하늘/노랑) 1~3명', '각 팀 색상의 풍선 1개와 종이컵 28개'],
+    peopleAndItems: ['팀당 참여 가능 인원 1~3명', '1vs1', '2vs2', '3vs3', '팀 구분: 하늘팀 vs 노랑팀'],
     howToPlay: ['턴을 잡은 팀은 풍선을 공중에 띄웁니다.', '풍선이 떨어지기 전까지, 내 컵으로 상대팀 컵을 덮어씌웁니다.', '풍선이 바닥에 떨어지기 전에 잡아야 하고 턴을 교대합니다.', '풍선이 바닥에 떨어지면 즉시 패배하니 유의하여야 합니다.'],
     winCondition: '상대팀 컵을 모두 덮어 내 팀 컵만 남기면 승리합니다.', winnerPrize: '상품 지급', loserPrize: '간식 지급',
     ticketNotice: '인원 상관없이 팀별 티켓 1장 필요', ticketCount: '총 2장',
