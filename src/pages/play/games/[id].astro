@@ -6,7 +6,7 @@ import CupBattlePage from '../../../components/play/CupBattlePage.astro';
 import { playGames } from '../../../data/play.js';
 
 export function getStaticPaths() {
-  return playGames.filter((game) => game.id !== 'target-master').map((game) => ({ params: { id: game.id }, props: { game } }));
+  return playGames.filter((game) => ['board-game', 'lucky-draw', 'cup-battle'].includes(game.id)).map((game) => ({ params: { id: game.id }, props: { game } }));
 }
 
 const { game } = Astro.props;
