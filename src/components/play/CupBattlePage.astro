@@ -28,7 +28,7 @@ const steps = [
       </section>
       <section class="rules section-card" aria-labelledby="rules-title">
         <div class="section-heading"><span aria-hidden="true">🏁</span><div><p>HOW TO PLAY</p><h2 id="rules-title">게임 진행</h2></div></div>
-        <ol>{steps.map((step, index) => <li><span>{index + 1}</span><p>{step.before}<strong>{step.emphasis}</strong>{step.after}</p></li>)}</ol>
+        <ol>{steps.map((step, index) => <li><span>{index + 1}</span><p>{step.before}{index === 1 && <br />}<strong>{step.emphasis}</strong>{step.after}</p></li>)}</ol>
       </section>
       <section class="results section-card" aria-labelledby="results-title">
         <div class="section-heading"><span aria-hidden="true">🏆</span><div><p>WIN &amp; PRIZES</p><h2 id="results-title">승리 및 시상</h2></div></div>
