@@ -21,6 +21,13 @@ const steps = [
       <h1>컵 땅따먹기 대항전!</h1><p>누가 더 빨리 상대팀 컵을 차지할까?</p>
     </header>
     <div class="content shell">
+      <section class="example section-card" aria-labelledby="example-title">
+        <div class="section-heading"><span aria-hidden="true">▶</span><div><p>PLAY EXAMPLE</p><h2 id="example-title">플레이 예시</h2></div></div>
+        <video controls playsinline preload="metadata">
+          <source src={base + game.mediaSrc} type="video/mp4" />
+          브라우저에서 영상을 재생할 수 없습니다.
+        </video>
+      </section>
       <section class="info section-card" aria-labelledby="info-title">
         <div class="section-heading"><span aria-hidden="true">👥</span><div><p>PLAYERS</p><h2 id="info-title">인원</h2></div></div>
         <div class="info-grid"><article><span>👥</span><strong><b>팀당 참여 가능 인원 1~3명</b><small>1vs1</small><small>2vs2</small><small>3vs3</small></strong></article><article><span>🎈</span><strong><b>팀 구분</b><small>하늘팀 vs 노랑팀</small></strong></article></div>
@@ -29,13 +36,6 @@ const steps = [
       <section class="rules section-card" aria-labelledby="rules-title">
         <div class="section-heading"><span aria-hidden="true">🏁</span><div><p>HOW TO PLAY</p><h2 id="rules-title">게임 진행</h2></div></div>
         <ol>{steps.map((step, index) => <li><span>{index + 1}</span><p>{step.before}{index === 1 && <br />}<strong>{step.emphasis}</strong>{step.after}</p></li>)}</ol>
-      </section>
-      <section class="example section-card" aria-labelledby="example-title">
-        <div class="section-heading"><span aria-hidden="true">▶</span><div><p>PLAY EXAMPLE</p><h2 id="example-title">플레이 예시</h2></div></div>
-        <video controls playsinline preload="metadata">
-          <source src={base + game.mediaSrc} type="video/mp4" />
-          브라우저에서 영상을 재생할 수 없습니다.
-        </video>
       </section>
       <section class="results section-card" aria-labelledby="results-title">
         <div class="section-heading"><span aria-hidden="true">🏆</span><div><p>WIN &amp; PRIZES</p><h2 id="results-title">승리 및 시상</h2></div></div>
