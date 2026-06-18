@@ -46,7 +46,7 @@ export const playGames = [
   },
   {
     id: 'target-master', number: '05', title: '믿음의 명사수', icon: '◎', accent: 'orange',
-    cardImage: '/ready/믿음의 명사수.png', imageAlt: '믿음의 명사수 게임 안내 포스터',
+    cardImage: '/ready/faith-marksman-poster-2026-v3.png', imageAlt: '믿음의 명사수 게임 안내 포스터',
     shortDescription: '타겟을 맞추면 캡슐이 팡팡!',
     description: '정해진 거리에서 타겟을 맞히고 캡슐 선물을 받을 수 있는 도전 게임입니다.',
     howToPlay: ['운영자에게 참가권을 제출합니다.', '정해진 위치에 서서 타겟을 조준합니다.', '주어진 기회 안에 타겟을 맞힙니다.', '성공 결과에 따라 캡슐 선물을 받습니다.'],
