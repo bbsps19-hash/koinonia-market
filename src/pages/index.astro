@@ -4,94 +4,35 @@ const base = import.meta.env.BASE_URL;
 ---
 
 <Layout title="코이노니아 마켓">
-	<div class="intro" data-intro>
-		<video class="intro__video" data-intro-video src={`${base}/assets/koinonia-market.mp4`} autoplay muted playsinline preload="auto" aria-label="코이노니아 마켓 오프닝 영상"></video>
-		<button class="intro__skip" type="button" data-skip>건너뛰기</button>
-	</div>
-
-	<main class="market" data-market aria-label="코이노니아 마켓 메인" style={`--poster-url: url(${base}/assets/koinonia-market.png)`}>
+	<main class="market" aria-label="코이노니아 마켓 메인" style={`--poster-url: url("${base}/assets/메인.png")`}>
 		<div class="market__backdrop" aria-hidden="true"></div>
 		<section class="market__poster">
-			<img src={`${base}/assets/koinonia-market.png`} alt="코이노니아 마켓" width="1448" height="1086" fetchpriority="high" />
-			<nav class="market__nav" aria-label="마켓 둘러보기">
-				<a class="market-link hotspot food" href={`${base}/food/`} aria-label="먹거리 페이지로 이동"><span class="menu-underline" aria-hidden="true"></span></a>
-				<a class="market-link hotspot goods" href={`${base}/goods/`} aria-label="팔거리 페이지로 이동"><span class="menu-underline" aria-hidden="true"></span></a>
-				<a class="market-link hotspot play" href={`${base}/play/`} aria-label="놀거리 페이지로 이동"><span class="menu-underline" aria-hidden="true"></span></a>
-			</nav>
+			<img src={`${base}/assets/메인.png`} alt="코이노니아 마켓" width="1055" height="1491" fetchpriority="high" />
+			<a class="play-cta" href={`${base}/play/`}>
+				<span>놀거리 더 알아보기</span>
+				<span aria-hidden="true">→</span>
+			</a>
 		</section>
 	</main>
-
-	<script>
-		const intro = document.querySelector('[data-intro]');
-		const video = document.querySelector('[data-intro-video]');
-		const skip = document.querySelector('[data-skip]');
-		const market = document.querySelector('[data-market]');
-		const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-		let entered = false;
-		const enter = () => {
-			if (entered) return;
-			entered = true;
-			market?.classList.add('is-visible');
-			intro?.classList.add('is-finished');
-			window.setTimeout(() => intro?.remove(), reduceMotion ? 0 : 700);
-		};
-		if (reduceMotion) {
-			video?.pause();
-			enter();
-		} else {
-			video?.addEventListener('ended', enter, { once: true });
-			video?.addEventListener('error', enter, { once: true });
-			skip?.addEventListener('click', enter, { once: true });
-			video?.play()?.catch(() => window.setTimeout(enter, 800));
-			window.setTimeout(enter, 12000);
-		}
-	</script>
 </Layout>
 
 <style>
-	.intro { position: fixed; inset: 0; z-index: 10; display: grid; place-items: center; overflow: hidden; background: #f1e6cc; transition: opacity 600ms ease, visibility 600ms ease; }
-	.intro::after { position: absolute; inset: 0; content: ''; pointer-events: none; box-shadow: inset 0 0 100px rgb(44 34 17 / 18%); }
-	.intro.is-finished { visibility: hidden; opacity: 0; }
-	.intro__video { width: 100%; height: 100%; object-fit: cover; }
-	.intro__skip { position: absolute; right: clamp(18px, 3vw, 42px); bottom: clamp(18px, 3vw, 36px); z-index: 1; padding: 10px 17px; border: 1px solid rgb(255 255 255 / 55%); border-radius: 999px; color: white; background: rgb(24 20 13 / 45%); font-size: 13px; font-weight: 700; cursor: pointer; backdrop-filter: blur(10px); transition: 180ms ease; }
-	.intro__skip:hover { background: rgb(24 20 13 / 68%); transform: translateY(-2px); }
-	.market { position: relative; display: grid; min-height: 100svh; place-items: center; overflow: hidden; padding: clamp(14px, 2.5vw, 38px); opacity: 0; background: #d8c5a2; }
+	.market { position: relative; display: grid; min-height: 100svh; place-items: center; overflow: hidden; padding: clamp(14px, 2.5vw, 38px); background: #d8c5a2; }
 	.market__backdrop { position: absolute; inset: -40px; background: linear-gradient(rgb(75 53 24 / 22%), rgb(75 53 24 / 22%)), var(--poster-url) center / cover; filter: blur(32px) saturate(.7); transform: scale(1.1); }
-	.market__poster { position: relative; width: min(100%, calc((100svh - clamp(28px, 5vw, 76px)) * 1.3333)); overflow: hidden; border: 1px solid rgb(255 255 255 / 32%); border-radius: clamp(8px, 1.4vw, 20px); box-shadow: 0 32px 80px rgb(37 25 9 / 33%), 0 3px 10px rgb(37 25 9 / 16%); transform: translateY(110vh) scale(.96); }
-	.market.is-visible { opacity: 1; }
-	.market.is-visible .market__poster { animation: poster-rise 1000ms cubic-bezier(.16, 1, .3, 1) 100ms both; }
+	.market__poster { position: relative; width: min(100%, calc((100svh - clamp(28px, 5vw, 76px)) * .7076)); overflow: hidden; border: 1px solid rgb(255 255 255 / 32%); border-radius: clamp(8px, 1.4vw, 20px); box-shadow: 0 32px 80px rgb(37 25 9 / 33%), 0 3px 10px rgb(37 25 9 / 16%); animation: poster-enter 700ms cubic-bezier(.16, 1, .3, 1) both; }
 	.market__poster > img:first-child { display: block; width: 100%; height: auto; }
-	.market__nav { position: absolute; inset: 0; }
-	.market-link { --underline-color: #ef3b65; --underline-rotation: -1deg; --underline-bottom: 4%; position: absolute; z-index: 1; cursor: pointer; text-decoration: none; -webkit-tap-highlight-color: transparent; }
-	.market-link.food { --underline-color: #ef3b65; --underline-rotation: -1deg; left: 7%; top: 34%; width: 27%; height: 18%; }
-	.market-link.goods { --underline-color: #16a58f; --underline-rotation: 1deg; --underline-bottom: 3%; left: 36%; top: 34%; width: 27%; height: 18%; }
-	.market-link.play { --underline-color: #5147d9; --underline-rotation: -1deg; --underline-bottom: 3%; left: 65%; top: 34%; width: 28%; height: 18%; }
-	.menu-underline { position: absolute; right: 8%; bottom: var(--underline-bottom); left: 8%; height: clamp(3px, .38vw, 6px); overflow: hidden; pointer-events: none; transform: rotate(var(--underline-rotation)); transition: opacity 200ms ease, transform 200ms ease, filter 200ms ease; }
-	.market-link.food .menu-underline { right: -3%; left: 19%; }
-	.market-link.goods .menu-underline { right: 1%; left: 15%; }
-	.menu-underline::before { position: absolute; inset: 0; content: ''; border-radius: 48% 52% 45% 55% / 65% 45% 55% 35%; opacity: .72; background: var(--underline-color); transform: skewX(-5deg); transition: opacity 200ms ease, height 200ms ease; }
-	.menu-underline::after { position: absolute; top: 0; bottom: 0; left: 0; width: 30%; content: ''; border-radius: 999px; opacity: .72; filter: blur(.25px); animation: underline-shine 2.1s ease-in-out infinite; }
-	.market-link.food .menu-underline::after { background: linear-gradient(90deg, transparent, #ff6f8f, transparent); }
-	.market-link.goods .menu-underline::after { background: linear-gradient(90deg, transparent, #49dfc8, transparent); }
-	.market-link.play .menu-underline::after { width: 26%; opacity: .58; background: linear-gradient(90deg, transparent, #817cff, transparent); filter: blur(.4px); }
-	.market-link.goods .menu-underline::after { animation-delay: .3s; }
-	.market-link.play .menu-underline::after { animation-delay: .15s; }
-	.market-link:hover .menu-underline, .market-link:focus-visible .menu-underline { filter: drop-shadow(0 0 3px color-mix(in srgb, var(--underline-color) 48%, transparent)); transform: scaleX(1.025) rotate(var(--underline-rotation)); }
-	.market-link:hover .menu-underline::before, .market-link:focus-visible .menu-underline::before { opacity: 1; }
-	.market-link:hover .menu-underline::after, .market-link:focus-visible .menu-underline::after { animation-duration: 1.25s; }
-	.market-link:focus-visible { outline: none; }
-	.market-link:focus-visible .menu-underline { filter: drop-shadow(0 0 4px color-mix(in srgb, var(--underline-color) 62%, transparent)); }
-	.market-link:active .menu-underline { transform: scaleX(1.01) rotate(var(--underline-rotation)); }
-	@keyframes poster-rise { 0% { opacity: 0; transform: translateY(110vh) scale(.96); } 70% { opacity: 1; transform: translateY(-2.2%) scale(1); } 100% { opacity: 1; transform: none; } }
-	@keyframes underline-shine { 0% { opacity: 0; transform: translateX(-130%); } 18% { opacity: .8; } 62% { opacity: .8; } 100% { opacity: 0; transform: translateX(430%); } }
+	.play-cta { position: absolute; right: 7%; bottom: 5%; left: 7%; display: flex; align-items: center; justify-content: center; gap: .65em; min-height: 52px; padding: 14px 22px; border: 2px solid rgb(255 255 255 / 80%); border-radius: 999px; color: white; background: rgb(58 45 145 / 92%); box-shadow: 0 10px 26px rgb(35 27 90 / 34%); font-size: clamp(16px, 2.2vw, 24px); font-weight: 800; text-decoration: none; backdrop-filter: blur(8px); transition: transform 180ms ease, background 180ms ease, box-shadow 180ms ease; -webkit-tap-highlight-color: transparent; }
+	.play-cta:hover { background: #5147d9; box-shadow: 0 13px 30px rgb(35 27 90 / 42%); transform: translateY(-3px); }
+	.play-cta:focus-visible { outline: 4px solid rgb(255 255 255 / 86%); outline-offset: 3px; }
+	.play-cta:active { transform: translateY(0); }
+	@keyframes poster-enter { from { opacity: 0; transform: translateY(32px) scale(.98); } to { opacity: 1; transform: none; } }
 	@media (max-width: 640px) {
 		.market { padding: 10px; }
-		.market__poster { width: 100%; }
+		.market__poster { width: min(100%, calc((100svh - 20px) * .7076)); }
+		.play-cta { min-height: 46px; padding: 11px 16px; }
 	}
 	@media (prefers-reduced-motion: reduce) {
-		.intro { display: none; }
-		.market, .market__poster { opacity: 1; transform: none; }
-		.market.is-visible .market__poster { animation: none; }
-		.menu-underline::after { animation: none; opacity: .35; transform: translateX(230%); }
+		.market__poster { animation: none; }
+		.play-cta { transition: none; }
 	}
 </style>
