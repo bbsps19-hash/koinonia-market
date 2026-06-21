@@ -8,9 +8,9 @@ export const eventInfo = {
 };
 
 export const priceInfo = {
-  singleGame: '게임당 3,000원',
+  singleGame: '티켓당 3,000원',
   bigCoupon: 'BIG 3 쿠폰 10,000원',
-  couponDescription: '게임 3개 + 뽑기 2번',
+  couponDescription: '티켓 3개 + 뽑기 2번',
 };
 
 export const playGames = [
@@ -22,26 +22,26 @@ export const playGames = [
     howToPlay: ['턴을 잡은 팀은 풍선을 공중에 띄웁니다.', '풍선이 떨어지기 전까지, 내 컵으로 상대팀 컵을 덮어씌웁니다.', '풍선이 바닥에 떨어지기 전에 잡아야 하고 턴을 교대합니다.', '풍선이 바닥에 떨어지면 즉시 패배하니 유의하여야 합니다.'],
     winCondition: '상대팀 컵을 모두 덮어 내 팀 컵만 남기면 승리합니다.', winnerPrize: '상품 지급', loserPrize: '간식 지급',
     ticketNotice: '인원 상관없이 팀별 티켓 1장 필요', ticketCount: '총 2장',
-    price: '게임당 3,000원', location: '1층 큰숲홀 놀거리 부스', time: '6.21(일) 오후 4~6시',
+    price: '게임당 기본 티켓 1장', location: '1층 큰숲홀 놀거리 부스', time: '6.21(일) 오후 4~6시',
     detailPath: '/play/games/cup-battle', posterImage: '/ready/cup-battle-poster-2026-v3.png', mediaSrc: '/ready/컵땅따먹기 예시.mp4',
   },
   {
     id: 'hit-bingo', number: '02', title: '적중 빙고', icon: '▦', accent: 'blue',
     cardImage: '/ready/적중빙고.jpg', imageAlt: '적중 빙고 게임 안내 포스터',
     shortDescription: '탁구공 10개로 계란판에 한 줄 빙고를 완성하세요!',
-    price: '게임당 3,000원', location: '1층 큰숲홀 놀거리 부스', detailPath: '/play/hit-bingo',
+    price: '게임당 기본 티켓 1장', location: '1층 큰숲홀 놀거리 부스', detailPath: '/play/hit-bingo',
   },
   {
     id: 'hit-bottle-cap', number: '03', title: '적중 병뚜껑', icon: '●', accent: 'blue',
     cardImage: '/ready/적중병뚜껑.jpg', imageAlt: '적중 병뚜껑 게임 안내 포스터',
     shortDescription: '병뚜껑 3개를 손가락으로 튕겨 점수 구역에 정확히 안착시키세요!',
-    price: '게임당 3,000원', location: '1층 큰숲홀 놀거리 부스', detailPath: '/play/hit-bottle-cap',
+    price: '게임당 기본 티켓 1장', location: '1층 큰숲홀 놀거리 부스', detailPath: '/play/hit-bottle-cap',
   },
   {
     id: 'hit-time-attack', number: '04', title: '적중 타임어택', icon: '00', accent: 'orange',
     cardImage: '/ready/적중타임어택.jpg', imageAlt: '적중 타임어택 게임 안내 포스터',
     shortDescription: '말씀의 장과 절에 맞춰 스마트폰 스톱워치를 정확히 멈추세요!',
-    price: '게임당 3,000원', location: '1층 큰숲홀 놀거리 부스', detailPath: '/play/hit-time-attack',
+    price: '게임당 기본 티켓 1장', location: '1층 큰숲홀 놀거리 부스', detailPath: '/play/hit-time-attack',
   },
   {
     id: 'target-master', number: '05', title: '믿음의 명사수', icon: '◎', accent: 'orange',
@@ -49,7 +49,7 @@ export const playGames = [
     shortDescription: '타겟을 맞추면 캡슐이 팡팡!',
     description: '정해진 거리에서 타겟을 맞히고 캡슐 선물을 받을 수 있는 도전 게임입니다.',
     howToPlay: ['운영자에게 참가권을 제출합니다.', '정해진 위치에 서서 타겟을 조준합니다.', '주어진 기회 안에 타겟을 맞힙니다.', '성공 결과에 따라 캡슐 선물을 받습니다.'],
-    price: '게임당 3,000원', location: '1층 큰숲홀 놀거리 부스', time: '6.21(일) 오후 4~6시',
+    price: '게임당 기본 티켓 1장', location: '1층 큰숲홀 놀거리 부스', time: '6.21(일) 오후 4~6시',
     notice: '안전을 위해 운영자의 안내에 따라 참여해주세요.', detailPath: '/play/games/target-master',
   },
   {
